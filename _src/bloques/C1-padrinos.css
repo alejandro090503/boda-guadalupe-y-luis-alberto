@@ -1,0 +1,44 @@
+/* INSERTAR: antes de </style> */
+#padrinos{
+  --g73-navy:#061A45;--g73-surface:#0A2152;--g73-deep:#0042A9;--g73-mid:#4F86E6;
+  --g73-silver:#C0C0C0;--g73-text:#EEF2F8;--g73-soft:rgba(238,242,248,.85);
+  --g73-foil:linear-gradient(100deg,#7D8591 0%,#C0C0C0 30%,#FFFFFF 50%,#C0C0C0 70%,#7D8591 100%);
+  background:transparent;padding:64px 22px;position:relative;overflow:hidden;
+}
+#padrinos .g73-foil{
+  background:var(--g73-foil);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:g73foilSweep 7s ease-in-out infinite;
+}
+@keyframes g73foilSweep{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+.g73-pd-inner{max-width:380px;margin:0 auto;text-align:center;}
+.g73-pd-orn{
+  display:flex;align-items:center;gap:10px;max-width:200px;margin:0 auto 28px;color:var(--g73-silver);
+}
+.g73-pd-orn::before,.g73-pd-orn::after{content:'';flex:1;height:1px;background:var(--g73-silver);opacity:.7;}
+.g73-pd-intro{
+  max-width:340px;margin:0 auto 22px;font-family:'Cormorant Garamond','Playfair Display',serif;font-style:italic;
+  font-size:19px;font-weight:500;line-height:1.6;color:var(--g73-soft);letter-spacing:.2px;
+}
+.g73-pd-header{
+  font-family:'Cormorant Garamond','Playfair Display',serif;font-size:clamp(26px,7vw,34px);font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;margin:0 0 26px;line-height:1.2;
+}
+.g73-pd-list{display:flex;flex-direction:column;gap:14px;max-width:320px;margin:0 auto;}
+.g73-pd-card{
+  background:var(--g73-surface);border:1px solid rgba(192,192,192,.4);border-radius:14px;
+  padding:24px 26px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.28);
+}
+.g73-pd-role{
+  font-family:'Jost',sans-serif;font-size:16px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  color:var(--g73-silver);display:block;margin-bottom:10px;line-height:1.3;
+}
+.g73-pd-name{
+  font-family:'Cormorant Garamond','Playfair Display',serif;font-size:24px;font-weight:600;
+  color:var(--g73-text);letter-spacing:.5px;line-height:1.4;margin:0;
+}
+.g73-pd-name.g73-pd-tbc{font-style:italic;font-weight:500;color:var(--g73-soft);}
+@media (prefers-reduced-motion:reduce){
+  #padrinos .g73-foil{animation:none;background-position:50% 0;}
+}

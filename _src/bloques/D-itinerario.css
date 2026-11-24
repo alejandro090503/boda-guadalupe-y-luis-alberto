@@ -1,0 +1,42 @@
+/* INSERTAR: antes de </style> (al final, después de C1-itinerario.css) */
+/* ═══ D-ITINERARIO · horas en Bodoni Moda y estela de luz plateada guiada por el scroll ═══
+   Apunta a la estructura g73-it- (plantilla 73). Lo arma D-itinerario.js; sin JS queda el diseño original. */
+#itinerary .g73-it-timeline.kit-on::before{opacity:0}
+.kit-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
+.kit-svg polyline{fill:none;stroke-linejoin:round;stroke-linecap:round}
+.kit-track{stroke:#6B7380;stroke-opacity:.42;stroke-width:1}
+.kit-line{stroke:#C0C0C0;stroke-opacity:.92;stroke-width:1.25;stroke-dasharray:1 1;stroke-linecap:butt!important}
+.kit-t1{stroke:#4F86E6;stroke-opacity:.24;stroke-width:6}
+.kit-t2{stroke:#CFE0FF;stroke-opacity:.5;stroke-width:2.6}
+.kit-t3{stroke:#FFFFFF;stroke-opacity:.98;stroke-width:1.5}
+
+.kit-head{position:absolute;left:0;top:0;width:0;height:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .35s ease}
+.kit-head.is-on{opacity:1}
+.kit-head b{position:absolute;left:-74px;top:-74px;width:148px;height:148px;background:url(assets/flare-plata.webp) center/contain no-repeat;
+  animation:kitLatido 3.4s ease-in-out infinite}
+@keyframes kitLatido{0%,100%{opacity:.82;transform:scale(.92)}50%{opacity:1;transform:scale(1.06)}}
+
+/* Horas: número grande en Bodoni Moda (no se usa en otra parte), am/pm en cursiva pequeña. Tinta sólida. */
+#itinerary .g73-it-time.kit-h{display:flex;align-items:baseline;gap:5px;font-family:'Bodoni Moda','Playfair Display',serif;font-weight:500;
+  font-size:30px;line-height:1.08;letter-spacing:.005em;color:#EEF2F8;font-variant-numeric:lining-nums;font-optical-sizing:auto;
+  transition:color .6s ease,text-shadow .6s ease}
+#itinerary .kit-m{font-family:'Bodoni Moda','Playfair Display',serif;font-style:italic;font-weight:500;font-size:16px;letter-spacing:.04em;color:#C0C0C0}
+.g73-it-step.is-lit .g73-it-time.kit-h{color:#FFFFFF;text-shadow:0 0 14px rgba(79,134,230,.55),0 1px 10px rgba(0,4,20,.9)}
+.g73-it-step.is-lit .g73-it-time.g73-it-tbc{color:#EEF2F8}
+#itinerary .g73-it-time.g73-it-tbc{transition:color .6s ease}
+
+/* Cada punto se enciende con chispa al llegar la luz */
+#itinerary .g73-it-dot{transition:background .55s ease,box-shadow .55s ease}
+#itinerary .g73-it-step.is-lit .g73-it-dot{background:radial-gradient(circle at 38% 32%,#FFFFFF 0 28%,#F4F6F9 52%,#C0C0C0 100%);
+  box-shadow:0 0 0 4px #061A45,0 0 0 5px rgba(244,246,249,.92),0 0 12px 3px rgba(207,224,255,.75),0 0 28px 7px rgba(79,134,230,.42)}
+#itinerary .g73-it-dot::before{content:'';position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;
+  background:url(assets/flare-plata-mini.webp) center/contain no-repeat;opacity:0;pointer-events:none}
+#itinerary .g73-it-step.is-lit .g73-it-dot::before{animation:kitChispa 1.15s cubic-bezier(.2,.7,.2,1) 1}
+@keyframes kitChispa{0%{opacity:0;transform:scale(.25) rotate(-24deg)}28%{opacity:1;transform:scale(1.08) rotate(0)}100%{opacity:0;transform:scale(.55) rotate(18deg)}}
+
+@media (max-width:340px){#itinerary .g73-it-time.kit-h{font-size:26px}#itinerary .kit-m{font-size:15px}}
+@media (prefers-reduced-motion:reduce){
+  .kit-head{display:none}
+  #itinerary .g73-it-step.is-lit .g73-it-dot::before{animation:none}
+  #itinerary .g73-it-time.kit-h,#itinerary .g73-it-dot{transition:none}
+}

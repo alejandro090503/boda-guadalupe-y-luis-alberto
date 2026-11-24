@@ -1,0 +1,51 @@
+<!-- INSERTAR: reemplaza #rsvp -->
+<section id="rsvp" aria-label="Confirmación de asistencia">
+  <span class="lbl">Confirmación</span>
+  <h2 class="ttl">¿Nos acompañas?</h2>
+  <div class="gline"></div>
+
+  <div class="c2-rs-card">
+    <svg class="c2-rs-corner c2-rs-tl" viewBox="0 0 52 52" fill="none" aria-hidden="true"><path d="M2 50 L2 2 L50 2" stroke="#C0C0C0" stroke-width=".9" opacity=".75"/><circle cx="2" cy="2" r="2.5" fill="#FFFFFF"/></svg>
+    <svg class="c2-rs-corner c2-rs-tr" viewBox="0 0 52 52" fill="none" aria-hidden="true"><path d="M2 50 L2 2 L50 2" stroke="#C0C0C0" stroke-width=".9" opacity=".75"/><circle cx="2" cy="2" r="2.5" fill="#FFFFFF"/></svg>
+    <svg class="c2-rs-corner c2-rs-bl" viewBox="0 0 52 52" fill="none" aria-hidden="true"><path d="M2 50 L2 2 L50 2" stroke="#C0C0C0" stroke-width=".9" opacity=".75"/><circle cx="2" cy="2" r="2.5" fill="#FFFFFF"/></svg>
+    <svg class="c2-rs-corner c2-rs-br" viewBox="0 0 52 52" fill="none" aria-hidden="true"><path d="M2 50 L2 2 L50 2" stroke="#C0C0C0" stroke-width=".9" opacity=".75"/><circle cx="2" cy="2" r="2.5" fill="#FFFFFF"/></svg>
+
+    <p class="c2-rs-dl">Confirma tu asistencia antes del <strong>7 de julio de 2027</strong></p>
+
+    <!-- Nombre del invitado (solo con link personalizado) -->
+    <div class="c2-rs-para" id="c2-rs-para" hidden>
+      <span class="c2-rs-para-lbl">Esta invitación es para</span>
+      <p class="c2-rs-name" id="c2-rs-name"></p>
+    </div>
+
+    <p class="c2-rs-note" id="c2-rs-note"></p>
+
+    <!-- Recuadro de pases -->
+    <div class="c2-rs-pases" id="c2-rs-pases" hidden>
+      <div class="c2-rs-box">
+        <span class="c2-rs-box-num" id="c2-rs-pases-num">1</span>
+        <span class="c2-rs-box-lbl" id="c2-rs-pases-lbl">Pase</span>
+      </div>
+    </div>
+
+    <!-- BANDEJA (se cierra al confirmar) -->
+    <div id="c2-rs-bandeja">
+      <div class="c2-rs-toggle" role="group" aria-label="¿Nos acompañarás?">
+        <button class="c2-rs-tbtn" id="c2-rs-yes" type="button" aria-pressed="false">Con gusto asistiré</button>
+        <button class="c2-rs-tbtn" id="c2-rs-no" type="button" aria-pressed="false">No podré asistir</button>
+      </div>
+      <div class="c2-rs-fields" id="c2-rs-fields" style="display:none"></div>
+      <button class="c2-rs-btn" id="c2-rs-confirm" type="button"><span id="c2-rs-btn-text">Confirmar asistencia</span></button>
+    </div>
+
+    <!-- AGRADECIMIENTO (oculto hasta confirmar) -->
+    <div class="c2-rs-gracias" id="c2-rs-gracias" style="display:none">
+      <svg class="c2-rs-gracias-icon" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="8.5 12.5 11 15 16 9.5"/></svg>
+      <p class="c2-rs-gracias-title" id="c2-rs-gracias-title"></p>
+      <p class="c2-rs-gracias-sub" id="c2-rs-gracias-sub"></p>
+      <button class="c2-rs-edit" id="c2-rs-edit" type="button">Modificar mi respuesta</button>
+    </div>
+
+    <p id="c2-rs-feedback" role="status" aria-live="polite"></p>
+  </div>
+</section>

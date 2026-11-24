@@ -1,0 +1,5 @@
+Sin fuentes nuevas. Verificar que la carga ya incluya estos pesos:
+Jost: 500, 600, 700
+Playfair Display: 700
+Cinzel: 500, 600
+Great Vibes: 400

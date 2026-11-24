@@ -1,0 +1,75 @@
+/* INSERTAR: antes de </style> (al final) */
+/* ── GALERÍA · carrusel 3D (c2-g) · base plantilla 183, marco plata, reflejo con velo ── */
+#gallery{background:transparent}
+.c2-g-wrap{
+  position:relative;margin-top:26px;padding:6px 0 2px;overflow:hidden;
+  /* banda del color de fondo: el velo del reflejo se funde exacto con ella */
+  background:linear-gradient(180deg,rgba(6,26,69,0) 0%,#061A45 12%,#061A45 88%,rgba(6,26,69,0) 100%);
+}
+.c2-g-stage{
+  --c2g-h:240px;
+  position:relative;width:100%;height:360px;
+  perspective:1000px;perspective-origin:50% 36%;
+  touch-action:pan-y;cursor:grab;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+}
+.c2-g-stage.is-drag{cursor:grabbing}
+.c2-g-ring{position:absolute;inset:0;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;will-change:transform}
+.c2-g-card{
+  position:absolute;left:50%;top:18px;margin:0;
+  width:var(--w,160px);height:var(--c2g-h);
+  -webkit-backface-visibility:hidden;backface-visibility:hidden;outline:none;
+}
+.c2-g-face{
+  position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;
+  padding:4px;border-radius:18px;
+  background:linear-gradient(140deg,#7D8591 0%,#E4E7EC 22%,#9AA1AC 46%,#F2F4F8 70%,#7D8591 100%);
+  box-shadow:0 16px 34px -14px rgba(0,8,40,.75),0 0 22px rgba(79,134,230,.16);
+}
+.c2-g-face::after{content:"";position:absolute;inset:4px;border-radius:14px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);pointer-events:none}
+.c2-g-face img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 35%;border-radius:14px;background:#0A2152;pointer-events:none;-webkit-user-drag:none}
+.c2-g-card:focus-visible .c2-g-face{box-shadow:0 0 0 3px #4F86E6,0 16px 34px -14px rgba(0,8,40,.75)}
+/* reflejo: clon volteado (NO -webkit-box-reflect) + velo del color de fondo */
+.c2-g-refl{position:absolute;left:0;top:calc(100% + 6px);width:100%;height:calc(var(--c2g-h) * .34);overflow:hidden;transform:scaleY(-1);pointer-events:none}
+.c2-g-refl .c2-g-face{top:auto;bottom:0;height:var(--c2g-h);box-shadow:none}
+.c2-g-veil{
+  position:absolute;left:-2px;right:-2px;top:calc(100% + 5px);height:calc(var(--c2g-h) * .34 + 2px);pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,26,69,.5) 0%,rgba(6,26,69,.82) 38%,#061A45 86%);
+}
+.c2-g-hint{
+  display:flex;align-items:center;justify-content:center;gap:10px;margin:4px 0 0;
+  font-family:'Jost',sans-serif;font-weight:500;font-size:16px;letter-spacing:.02em;line-height:1.4;color:#C0C0C0;text-align:center;
+}
+.c2-g-hint::before,.c2-g-hint::after{content:"";flex:0 0 18px;height:1px;background:linear-gradient(90deg,transparent,#C0C0C0,transparent)}
+
+/* lightbox */
+.c2-lb{
+  position:fixed;inset:0;z-index:9700;display:flex;align-items:center;justify-content:center;
+  padding:66px 16px 92px;background:rgba(3,12,36,.97);
+  touch-action:none;overscroll-behavior:contain;
+  -webkit-user-select:none;user-select:none;
+}
+.c2-lb[hidden]{display:none!important}
+.c2-lb-fig{
+  position:relative;margin:0;max-width:min(420px,100%);padding:5px;border-radius:12px;
+  background:linear-gradient(140deg,#7D8591 0%,#E4E7EC 22%,#9AA1AC 46%,#F2F4F8 70%,#7D8591 100%);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.7);
+}
+.c2-lb-img{
+  display:block;max-width:100%;width:auto;height:auto;border-radius:8px;
+  max-height:calc(100vh - 170px);max-height:calc(100dvh - 170px);
+  pointer-events:none;-webkit-user-drag:none;
+}
+.c2-lb-btn{
+  width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(6,26,69,.65);border:1px solid rgba(192,192,192,.8);color:#EEF2F8;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;padding:0;
+}
+.c2-lb-btn svg{width:20px;height:20px}
+.c2-lb-btn:focus-visible{outline:2px solid #4F86E6;outline-offset:3px}
+.c2-lb-close{position:absolute;top:max(14px,env(safe-area-inset-top));right:14px}
+.c2-lb-bar{
+  position:absolute;left:0;right:0;bottom:max(22px,env(safe-area-inset-bottom));
+  display:flex;align-items:center;justify-content:center;gap:28px;
+}
+.c2-lb-count{font-family:'Jost',sans-serif;font-size:17px;font-weight:500;letter-spacing:.18em;color:#EEF2F8;min-width:64px;text-align:center}

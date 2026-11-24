@@ -1,0 +1,16 @@
+/* INSERTAR: antes de </style> */
+/* ── Menú abajo al centro (principal §4) ── */
+.nav-btn{top:auto!important;right:auto!important;left:50%!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;
+  transform:translateX(-50%);width:auto!important;height:46px!important;padding:0 20px!important;border-radius:999px!important;
+  display:flex!important;flex-direction:row!important;align-items:center;gap:10px!important;
+  background:rgba(10,33,82,.62)!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(214,220,230,.55)!important;box-shadow:0 6px 22px rgba(0,8,30,.45)!important;transition:opacity .6s ease,transform .25s ease}
+.nav-btn:active{transform:translateX(-50%) scale(.94)!important}
+.nav-btn .nb-lines{display:flex;flex-direction:column;gap:4px}
+.nav-btn .nb-lines i{display:block;width:16px;height:1.2px;background:#E6EAF0;transform:none!important;opacity:1!important}
+.nav-btn .nb-txt{font-family:'Jost',sans-serif;font-weight:600;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#F4F6FA}
+.nav-btn.abierto{opacity:0!important;pointer-events:none!important}
+.nav-x{position:absolute;top:calc(18px + env(safe-area-inset-top));right:18px;width:44px;height:44px;border:0;background:transparent;cursor:pointer;z-index:2}
+.nav-x::before,.nav-x::after{content:'';position:absolute;left:11px;right:11px;top:21px;height:1.2px;background:#E6EAF0}
+.nav-x::before{transform:rotate(45deg)}.nav-x::after{transform:rotate(-45deg)}
+#main-content{padding-bottom:84px}

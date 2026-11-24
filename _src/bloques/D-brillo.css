@@ -1,0 +1,88 @@
+/* INSERTAR: antes de </style> (al final, después de los bloques A/C; antes de D-vivo.css) */
+/* ═══ D-BRILLO · brillo óptico en PLATA fría sobre azul marino. Prefijo kx-. Lo arma D-brillo.js ═══
+   Paleta: fondo #061A45 · superficie #0A2152 · acento #0042A9/#4F86E6 · plata #C0C0C0 (sombra #6B7380, brillo #F4F6F9) */
+:root{
+  --foil:linear-gradient(100deg,#7E8796 0%,#C0C0C0 30%,#FFFFFF 50%,#C0C0C0 70%,#7E8796 100%);
+  --gl-glow:79,134,230;
+}
+
+/* ── Destello de lente: reposa a .6, florece uno a la vez (desfase áureo) ── */
+.kx-flare{position:absolute;left:var(--x,50%);top:var(--y,0);width:0;height:0;z-index:5;pointer-events:none}
+.kx-flare b{position:absolute;left:0;top:0;display:block;width:calc(190px*var(--s,1));height:calc(190px*var(--s,1));
+  margin:calc(-95px*var(--s,1)) 0 0 calc(-95px*var(--s,1));background:url(assets/flare-plata.webp) center/contain no-repeat;
+  opacity:.6;transform:scale(.8);animation:kxBloom var(--dur,8s) cubic-bezier(.45,0,.3,1) infinite;animation-delay:var(--del,0s)}
+.kx-flare.is-mini b{background-image:url(assets/flare-plata-mini.webp);width:calc(76px*var(--s,1));height:calc(76px*var(--s,1));
+  margin:calc(-38px*var(--s,1)) 0 0 calc(-38px*var(--s,1));animation-name:kxTwinkle}
+@keyframes kxBloom{0%,34%{opacity:.6;transform:scale(.8)}48%{opacity:1;transform:scale(1.15)}57%{opacity:.88;transform:scale(1)}74%,100%{opacity:.6;transform:scale(.8)}}
+@keyframes kxTwinkle{0%,38%{opacity:.55;transform:scale(.62) rotate(-14deg)}50%{opacity:1;transform:scale(1.15) rotate(0)}64%,100%{opacity:.55;transform:scale(.62) rotate(12deg)}}
+
+/* ── Tarjetas de vidrio con filo de luz ── */
+.loc-card,.fam-card,.c2-rs-card,.c2-rs-gracias,.g73-gf-card,.r2-card,.r2-gracias{
+  background:linear-gradient(152deg,rgba(244,246,249,.085) 0%,rgba(244,246,249,.016) 26%,rgba(79,134,230,.04) 62%,rgba(244,246,249,.05) 100%),rgba(6,26,69,.78)!important;
+  border-color:transparent!important;overflow:visible!important;
+  box-shadow:0 26px 54px -18px rgba(0,4,20,.9),0 8px 20px -10px rgba(0,4,20,.8),0 0 46px -6px rgba(var(--gl-glow),.26),inset 0 1px 0 rgba(255,255,255,.13)!important}
+.c2-rs-box,.r2-box{border-color:transparent!important;
+  box-shadow:0 0 26px -6px rgba(var(--gl-glow),.32),inset 0 1px 0 rgba(255,255,255,.12)!important}
+
+/* Luz que entra arriba a la izquierda y rebota en azul abajo a la derecha */
+.kx-halo{position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;z-index:1;
+  background:radial-gradient(160px 96px at 8% 0,rgba(244,246,249,.16),transparent 72%),radial-gradient(140px 86px at 92% 100%,rgba(79,134,230,.18),transparent 72%)}
+.kx-rim{position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;overflow:hidden;pointer-events:none;z-index:3;
+  background:linear-gradient(138deg,#FFFFFF 0%,#F4F6F9 7%,rgba(192,192,192,.66) 19%,rgba(107,115,128,.34) 40%,rgba(107,115,128,.28) 60%,rgba(79,134,230,.66) 84%,#CFE0FF 95%,#F4F6F9 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.kx-rim i{position:absolute;left:50%;top:50%;width:175%;aspect-ratio:1;margin:-87.5% 0 0 -87.5%;
+  background:conic-gradient(from 0deg,transparent 0deg,transparent 150deg,rgba(207,224,255,.22) 166deg,#FFFFFF 179deg,rgba(255,255,255,0) 183deg,transparent 330deg,rgba(207,224,255,.18) 348deg,#FFFFFF 359deg,transparent 360deg);
+  animation:kxSpin 10s linear infinite;animation-delay:var(--del,0s)}
+@keyframes kxSpin{to{transform:rotate(360deg)}}
+/* Filete interior fino */
+.kx-line{position:absolute;inset:6px;border-radius:calc(var(--kxr,14px) - 5px);pointer-events:none;z-index:2;
+  border:1px solid rgba(244,246,249,.12);
+  -webkit-mask:linear-gradient(138deg,#000,rgba(0,0,0,.3) 34%,rgba(0,0,0,.3) 66%,#000);mask:linear-gradient(138deg,#000,rgba(0,0,0,.3) 34%,rgba(0,0,0,.3) 66%,#000)}
+/* Reflejo diagonal que cruza el vidrio cada ~9 s */
+.kx-sheen{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:2}
+.kx-sheen i{position:absolute;top:-30%;bottom:-30%;left:0;width:46%;
+  background:linear-gradient(100deg,transparent,rgba(232,240,255,.04) 30%,rgba(244,246,249,.15) 49%,rgba(255,255,255,.045) 56%,transparent);
+  transform:translateX(-140%) skewX(-16deg);animation:kxGlass 9s cubic-bezier(.5,0,.2,1) infinite;animation-delay:var(--del,0s)}
+@keyframes kxGlass{0%,58%{transform:translateX(-140%) skewX(-16deg)}86%,100%{transform:translateX(340%) skewX(-16deg)}}
+.c2-rs-box .kx-line,.r2-box .kx-line{inset:4px}
+
+/* ── Títulos, nombres, "&", pie y cifras en plata líquida ── */
+.ttl,.heading,.heading-sm,.foil-text,.g73-foil,.cd2-num{
+  background:var(--foil)!important;background-size:220% 100%!important;background-repeat:no-repeat!important;
+  -webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;
+  color:#C0C0C0;text-shadow:none;
+  animation:goldSweep 7s ease-in-out infinite;
+  filter:drop-shadow(0 0 6px rgba(var(--gl-glow),.25));
+  box-decoration-break:clone;-webkit-box-decoration-break:clone}
+@keyframes goldSweep{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+.cd2-num,.g73-foil{padding:.22em .45em;margin-left:-.45em;margin-right:-.45em;line-height:1.25}
+.cd2-num{margin-top:-.22em;margin-bottom:-.22em}
+.g73-it-title.g73-foil{margin-top:-.22em;margin-bottom:calc(52px - .22em)}
+.kx-has{position:relative}
+
+/* Polvo de luz fino alrededor de los títulos principales */
+.kx-dust{position:absolute;inset:0;pointer-events:none;z-index:6}
+.kx-dust b{position:absolute;left:var(--x);top:var(--y);width:3px;height:3px;margin:-1.5px 0 0 -1.5px;border-radius:50%;
+  background:#F4F6F9;box-shadow:0 0 6px 1px rgba(var(--gl-glow),.7);opacity:0;
+  animation:kxPolvo var(--dur,4s) ease-in-out infinite;animation-delay:var(--del,0s)}
+.kx-dust b.is-s{width:2px;height:2px;margin:-1px 0 0 -1px}
+@keyframes kxPolvo{0%,100%{opacity:0;transform:translate3d(0,3px,0) scale(.4)}45%{opacity:.95;transform:translate3d(0,-2px,0) scale(1)}70%{opacity:.2;transform:translate3d(0,-5px,0) scale(.7)}}
+
+/* ── Filetes y divisores con barrido de luz ── */
+.kx-gsw{position:absolute;left:0;right:0;top:-1px;height:3px;overflow:hidden;pointer-events:none}
+.kx-gsw::before{content:'';position:absolute;left:0;top:0;width:18px;height:100%;
+  background:radial-gradient(ellipse at center,#FFFFFF 0%,rgba(207,224,255,.55) 40%,transparent 72%);
+  transform:translateX(-24px);animation:kxFilete 6.5s cubic-bezier(.5,0,.3,1) infinite;animation-delay:var(--del,0s)}
+@keyframes kxFilete{0%,55%{transform:translateX(-24px)}85%,100%{transform:translateX(var(--w,80px))}}
+
+/* ── Botones principales con filo de cromo ── */
+.btn,.g73-gf-btn,.alb-btn{box-shadow:0 0 0 1px rgba(244,246,249,.55),0 10px 24px -8px rgba(0,66,169,.6),inset 0 1px 0 rgba(255,255,255,.38)!important}
+
+@media (prefers-reduced-motion:reduce){
+  .kx-flare b,.kx-rim i,.kx-sheen i,.kx-dust b,.kx-gsw::before{animation:none!important}
+  .kx-flare b{opacity:.7;transform:none}
+  .kx-flare.is-mini b{opacity:.6}
+  .kx-dust b{opacity:.5}
+  .ttl,.heading,.heading-sm,.foil-text,.g73-foil,.cd2-num{animation:none!important;background-position:50% 0!important}
+}

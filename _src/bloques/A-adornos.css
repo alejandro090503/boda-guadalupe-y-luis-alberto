@@ -1,0 +1,8 @@
+/* INSERTAR: antes de </style> (después del bloque de tintas) */
+/* Adornos temáticos (luna, estrellas, nubes en plata/azul). Prefijo adx-. */
+section>.adx{position:absolute;z-index:0;display:block;height:auto;pointer-events:none;user-select:none;will-change:transform}
+section>.adx.adx-s{opacity:.9;animation:adxFloat var(--adx-d,7s) ease-in-out var(--adx-w,0s) infinite alternate}
+section>.adx.adx-b{opacity:.28}
+@keyframes adxFloat{from{transform:translateY(-6px)}to{transform:translateY(6px)}}
+@media (min-width:768px){section>.adx{zoom:1.35}}
+@media (prefers-reduced-motion:reduce){section>.adx.adx-s{animation:none}}
