@@ -2834,10 +2834,10 @@ section>.adx.adx-b{opacity:.28}
 @keyframes kitLatido{0%,100%{opacity:.82;transform:scale(.92)}50%{opacity:1;transform:scale(1.06)}}
 
 /* Horas: número grande en Bodoni Moda (no se usa en otra parte), am/pm en cursiva pequeña. Tinta sólida. */
-#itinerary .g73-it-time.kit-h{display:flex;align-items:baseline;gap:5px;font-family:'Bodoni Moda','Playfair Display',serif;font-weight:500;
+#itinerary .g73-it-time.kit-h{display:flex;align-items:baseline;gap:5px;font-family:'Cormorant Garamond','Playfair Display',serif;font-weight:500;
   font-size:30px;line-height:1.08;letter-spacing:.005em;color:#EEF2F8;font-variant-numeric:lining-nums;font-optical-sizing:auto;
   transition:color .6s ease,text-shadow .6s ease}
-#itinerary .kit-m{font-family:'Bodoni Moda','Playfair Display',serif;font-style:italic;font-weight:500;font-size:16px;letter-spacing:.04em;color:#C0C0C0}
+#itinerary .kit-m{font-family:'Cormorant Garamond','Playfair Display',serif;font-style:italic;font-weight:500;font-size:16px;letter-spacing:.04em;color:#C0C0C0}
 .g73-it-step.is-lit .g73-it-time.kit-h{color:#FFFFFF;text-shadow:0 0 14px rgba(79,134,230,.55),0 1px 10px rgba(0,4,20,.9)}
 .g73-it-step.is-lit .g73-it-time.g73-it-tbc{color:#EEF2F8}
 #itinerary .g73-it-time.g73-it-tbc{transition:color .6s ease}
@@ -2914,6 +2914,121 @@ section>.adx.adx-b{opacity:.28}
 @media(prefers-reduced-motion:reduce){.cd2-ring-progress,.cd2-ring-glow{transition:none}#cd-item-s.tick .cd2-ring-wrap{animation:none}}
 
 #location .loc-time.loc-tbd{font-family:'Jost',sans-serif;font-weight:600;font-size:18px;letter-spacing:.14em;text-transform:uppercase}
+
+/* ═══ Luz Premium Elysium · aprobados (1, 2, 3, 8, 10, 12, 14) ═══
+   Copiar TAL CUAL. Solo se cambian las variables de color de :root de la invitación:
+   --lp-metal-1..5 (oscuro → brillo → oscuro del metálico), --lp-glow (r,g,b del brillo).
+   Rutas de assets: assets/flare.webp y assets/flare-mini.webp (los del kit, repintados con flares.py). */
+
+:root{
+  --lp-metal-1:#6B7380; --lp-metal-2:#AEB4C0; --lp-metal-3:#FFFFFF; --lp-metal-4:#DCE0E7; --lp-metal-5:#9098A4;
+  --lp-glow:220,226,240;
+}
+
+/* ── 1 · Destello con fantasmas de lente ──
+   <div class="lp-flare" data-x="18%" data-y="20%" data-s="1"></div> dentro de un contenedor position:relative */
+.lp-flare-wrap{position:absolute;inset:0;pointer-events:none;z-index:4;overflow:hidden}
+.lp-fl{position:absolute;width:0;height:0}
+.lp-fl b{position:absolute;width:calc(220px*var(--s,1));height:calc(220px*var(--s,1));margin:calc(-110px*var(--s,1)) 0 0 calc(-110px*var(--s,1));
+  background:url(assets/flare.webp) center/contain no-repeat;opacity:.5;transform:scale(.72);
+  animation:lpBloom var(--dur,8s) cubic-bezier(.45,0,.3,1) infinite;animation-delay:var(--del,0s)}
+@keyframes lpBloom{0%,34%{opacity:.5;transform:scale(.72)}48%{opacity:1;transform:scale(1.12)}56%{opacity:.88;transform:scale(1)}74%,100%{opacity:.5;transform:scale(.72)}}
+.lp-ghost{position:absolute;border-radius:50%;opacity:0;mix-blend-mode:screen;animation:lpGhost var(--dur,8s) cubic-bezier(.45,0,.3,1) infinite;animation-delay:var(--del,0s)}
+.lp-ghost.hex{border-radius:0;clip-path:polygon(25% 3%,75% 3%,100% 50%,75% 97%,25% 97%,0 50%)}
+@keyframes lpGhost{0%,38%{opacity:0}50%{opacity:var(--o,.35)}62%,100%{opacity:0}}
+
+/* ── 2 · Destellos de diamante en las letras ── (el contenedor del texto lleva class="lp-glints") */
+.lp-glints{position:relative;display:inline-block}
+.lp-glint{position:absolute;width:46px;height:46px;margin:-23px 0 0 -23px;background:url(assets/flare-mini.webp) center/contain no-repeat;pointer-events:none;z-index:4;opacity:0}
+
+/* ── 3 · Caída temática (canvas) ── <canvas class="lp-caida" data-sprites="assets/p1.webp,assets/p2.webp"></canvas> */
+.lp-caida{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+
+/* ── 8 · Cáusticas de cristal (WebGL) ── <canvas class="lp-causticas"></canvas> dentro de un contenedor relative */
+.lp-causticas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;mix-blend-mode:screen;
+  -webkit-mask-image:radial-gradient(70% 65% at 40% 40%,#000 30%,transparent 80%);mask-image:radial-gradient(70% 65% at 40% 40%,#000 30%,transparent 80%)}
+
+/* ── 10 · Cascada de brillo letra por letra ── (texto con class="lp-cascada"; el JS lo separa en letras) */
+.lp-cascada span{display:inline-block;
+  background-image:linear-gradient(104deg,transparent 30%,rgba(255,255,255,1) 50%,transparent 70%),
+    linear-gradient(178deg,var(--lp-metal-3) 6%,var(--lp-metal-4) 28%,var(--lp-metal-2) 46%,var(--lp-metal-1) 52%,var(--lp-metal-4) 62%,var(--lp-metal-3) 80%,var(--lp-metal-5) 98%);
+  background-size:300% 100%,100% 100%;background-repeat:no-repeat;background-position:150% 0,0 0;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:lpLetra 6s ease-in-out infinite;animation-delay:calc(var(--i)*90ms + var(--lp-del,0s));
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.45))}
+.lp-cascada span.sp{width:.3em}
+.lp-cascada{padding:.22em .45em;margin:-.22em -.45em;line-height:1.25}
+@keyframes lpLetra{0%,8%{background-position:150% 0,0 0}22%,100%{background-position:-60% 0,0 0}}
+/* En fondo claro: el pico del brillo no llega a blanco */
+.lp-claro .lp-cascada span,.lp-cascada.lp-claro span{background-image:linear-gradient(104deg,transparent 30%,var(--lp-metal-4) 50%,transparent 70%),
+    linear-gradient(178deg,var(--lp-metal-2) 6%,var(--lp-metal-1) 40%,var(--lp-metal-5) 62%,var(--lp-metal-1) 98%);filter:none}
+
+/* ── 12 · Niebla en capas ── <div class="lp-niebla"></div> dentro de una sección relative (el JS crea las 3 capas) */
+.lp-niebla{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.lp-niebla i{position:absolute;left:0;right:0;background-repeat:repeat-x;background-size:1024px 100%}
+.lp-niebla i:nth-child(1){top:30%;height:70%;opacity:.55;animation:lpNiebla 60s linear infinite}
+.lp-niebla i:nth-child(2){top:45%;height:60%;opacity:.4;animation:lpNiebla 38s linear infinite reverse}
+.lp-niebla i:nth-child(3){top:60%;height:45%;opacity:.7;animation:lpNiebla 26s linear infinite}
+@keyframes lpNiebla{to{background-position:-1024px 0}}
+
+/* ── 14 · Seda iluminada (WebGL compartido) ── fondo de sección: <canvas class="lp-seda"></canvas> como primer hijo */
+.lp-seda{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-2}
+/* fundido de la seda hacia el color exacto de la sección vecina (lo crea el JS con LP_CONFIG.borde) */
+.lp-sfade{position:absolute;left:0;right:0;pointer-events:none;z-index:-1}
+.lp-sfade--top{top:0}.lp-sfade--bot{bottom:0}
+
+/* ── 15 · Velo de luz y 17 · Cortina de seda en la unión ──
+   En la sección de ABAJO: data-lp-union="velo" o data-lp-union="seda". El JS crea la capa en su borde superior.
+   Va encima del fundido de color medio entre secciones (no lo sustituye). Colores de la cortina: LP_CONFIG.cortina {sombra,base,luz} (metálico). */
+.lp-union{position:absolute;left:0;right:0;pointer-events:none;z-index:5}
+/* sin mix-blend-mode: la sección tiene isolation:isolate y la mitad que asoma arriba se mezclaría distinto (deja línea) */
+.lp-union--velo{left:0;right:0;top:-130px;height:260px;opacity:0;
+  background:radial-gradient(75% 50% at 50% 50%,rgba(var(--lp-glow),.5),rgba(var(--lp-glow),.16) 50%,rgba(var(--lp-glow),0) 74%)}
+.lp-union--seda{top:-90px;height:180px;
+  -webkit-mask-image:linear-gradient(transparent,#000 40%,#000 60%,transparent);mask-image:linear-gradient(transparent,#000 40%,#000 60%,transparent)}
+.lp-union--seda .lp-seda{z-index:0}
+
+@media (prefers-reduced-motion:reduce){
+  .lp-fl b,.lp-ghost,.lp-cascada span,.lp-niebla i{animation:none!important}
+}
+
+/* ═══ FIRMA · constelación + Sparkles 21st (plata) ═══ */
+canvas.cst{position:absolute;pointer-events:none;z-index:2}
+#hero canvas.cst{left:0;right:0;bottom:6%;height:58%;width:100%;opacity:.8;
+  -webkit-mask-image:radial-gradient(75% 70% at 50% 50%,#000 45%,transparent 100%);mask-image:radial-gradient(75% 70% at 50% 50%,#000 45%,transparent 100%)}
+#footer{position:relative;isolation:isolate;overflow-x:clip;background:radial-gradient(at 50% 30%,rgba(192,198,208,.06),transparent 50%),linear-gradient(to bottom,rgba(11,36,87,0) 0%,rgba(11,36,87,.55) 40%,#071C4A 100%)!important}
+#rsvp > .ink-bg,#itinerary > .ink-bg{-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 72%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 72%,transparent 100%)}
+[data-lp-seda],#rsvp,#itinerary,#location,#album,#family,#invite{background:transparent!important}
+#main-content > section,#footer{border-top:0!important;border-bottom:0!important}
+#footer canvas.cst{left:0;right:0;top:0;height:62%;width:100%;z-index:0;opacity:.75;
+  -webkit-mask-image:radial-gradient(70% 70% at 50% 45%,#000 40%,transparent 100%);mask-image:radial-gradient(70% 70% at 50% 45%,#000 40%,transparent 100%)}
+#footer > *:not(canvas):not(.lp-niebla):not(.lp-caida){position:relative;z-index:3}
+
+.sp21{position:relative;width:100%;max-width:340px;height:96px;margin:18px auto 0;pointer-events:none}
+.sp21 .sp-line{position:absolute;left:50%;top:0;transform:translateX(-50%);height:2px;width:78%;z-index:3;
+  background:linear-gradient(90deg,transparent,#AEB4C0 30%,#FFFFFF 50%,#AEB4C0 70%,transparent);box-shadow:0 0 22px 4px rgba(200,212,236,.5)}
+.sp21 .sp-line2{position:absolute;left:50%;top:0;transform:translateX(-50%);height:6px;width:32%;margin-top:-2px;z-index:3;
+  background:linear-gradient(90deg,transparent,#FFFFFF,transparent);filter:blur(4px)}
+.sp21 canvas{position:absolute;left:0;right:0;top:0;height:100%;width:100%;
+  -webkit-mask-image:radial-gradient(60% 80% at 50% 0%,#000 30%,transparent 100%);mask-image:radial-gradient(60% 80% at 50% 0%,#000 30%,transparent 100%)}
+.sp21 .sp-curve{position:absolute;left:-12%;right:-12%;top:5px;height:200%;border-radius:50% 50% 0 0;z-index:2;
+  background:radial-gradient(120% 60% at 50% 0%,rgba(6,26,69,.0),rgba(6,26,69,0) 60%);box-shadow:0 -8px 26px -12px rgba(200,212,236,.45)}
+
+/* Nombres sin script (serif de la plantilla); el "&" queda en script */
+#hero .h-name{font-family:'Playfair Display',serif!important;font-weight:600!important;font-size:clamp(38px,10.6vw,48px)!important;letter-spacing:.015em;line-height:1.12}
+.ft-nms{font-family:'Playfair Display',serif!important;font-weight:600!important;font-size:clamp(28px,8vw,36px)!important;line-height:1.25!important;letter-spacing:.01em}
+#invite .heading{font-family:'Playfair Display',serif!important;font-weight:600!important;font-size:clamp(32px,9vw,40px)!important;line-height:1.2!important}
+.fam-name{font-family:'Playfair Display',serif!important;font-weight:500!important;font-size:clamp(22px,6.2vw,25px)!important;line-height:1.35!important}
+#hero .h-clip.lp-glints{display:inline-block}
+/* loader: estrellas en los vértices de la constelación */
+.ld-star{fill:#FFFFFF;opacity:.2;animation:ldTw 2.6s ease-in-out infinite}
+@keyframes ldTw{0%,100%{opacity:.25}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.ld-star{animation:none;opacity:.8}}
+
+[data-lp-seda]{position:relative;isolation:isolate}
+[data-lp-ink]{position:relative;isolation:isolate}
+#location,#rsvp{overflow-x:clip!important}
+#rsvp{padding-top:max(110px,var(--rsvp-pt,0px))!important}
 </style>
 </head>
 <body>
@@ -2927,7 +3042,8 @@ section>.adx.adx-b{opacity:.28}
   <svg class="ld-const" viewBox="0 0 375 812" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <path d="M40 120 L96 168 L150 140 L196 196 M250 96 L300 150 L338 128 M300 150 L286 214" />
     <path d="M30 660 L84 620 L132 676 L188 640 M250 700 L304 664 L346 716 M304 664 L322 604" />
-  </svg>
+  <circle class="ld-star" cx="132" cy="676" r="2.2" style="animation-delay:-0.0s"/><circle class="ld-star" cx="150" cy="140" r="2.2" style="animation-delay:-0.4s"/><circle class="ld-star" cx="188" cy="640" r="2.2" style="animation-delay:-0.7s"/><circle class="ld-star" cx="196" cy="196" r="2.2" style="animation-delay:-1.1s"/><circle class="ld-star" cx="250" cy="700" r="2.2" style="animation-delay:-1.5s"/><circle class="ld-star" cx="250" cy="96" r="2.2" style="animation-delay:-1.9s"/><circle class="ld-star" cx="286" cy="214" r="2.2" style="animation-delay:-2.2s"/><circle class="ld-star" cx="30" cy="660" r="2.2" style="animation-delay:-2.6s"/><circle class="ld-star" cx="300" cy="150" r="2.2" style="animation-delay:-0.4s"/><circle class="ld-star" cx="304" cy="664" r="2.2" style="animation-delay:-0.7s"/><circle class="ld-star" cx="322" cy="604" r="2.2" style="animation-delay:-1.1s"/><circle class="ld-star" cx="338" cy="128" r="2.2" style="animation-delay:-1.5s"/><circle class="ld-star" cx="346" cy="716" r="2.2" style="animation-delay:-1.8s"/><circle class="ld-star" cx="40" cy="120" r="2.2" style="animation-delay:-2.2s"/><circle class="ld-star" cx="84" cy="620" r="2.2" style="animation-delay:-2.6s"/><circle class="ld-star" cx="96" cy="168" r="2.2" style="animation-delay:-0.3s"/></svg>
+  <div class="lp-flare" data-x="50%" data-y="40%" data-s="1.1" aria-hidden="true"></div>
   <div class="ld-center">
     <div class="ld-ring">
       <svg viewBox="0 0 220 220" aria-hidden="true">
@@ -2998,6 +3114,10 @@ section>.adx.adx-b{opacity:.28}
   <div class="h-ov"></div>
   <div class="h-frame"></div>
   <div class="h-particles" id="hPart"></div>
+  <canvas class="cst" data-modo="trazar" aria-hidden="true"></canvas>
+  <canvas class="lp-caida" data-n="8" data-sprites="assets/particula-estrella-b.webp,assets/particula-polvo.webp" aria-hidden="true"></canvas>
+  <div class="lp-niebla" aria-hidden="true"></div>
+  <div class="lp-flare" data-x="80%" data-y="14%" data-s="1" aria-hidden="true"></div>
 
   <div class="h-cnt" id="hCnt">
     <p class="h-we" id="hWe">Nos casamos</p>
@@ -3006,11 +3126,11 @@ section>.adx.adx-b{opacity:.28}
       <span class="h-div-dot">✦ · ✦</span>
     </div>
 
-    <div class="h-clip"><span class="h-name foil-text" id="hN1">Guadalupe</span></div>
+    <div class="h-clip lp-glints"><span class="h-name foil-text" id="hN1">Guadalupe</span></div>
     <div class="h-amp-clip"><span class="h-amp foil-text" id="hAmp">&amp;</span></div>
-    <div class="h-clip"><span class="h-name foil-text" id="hN2">Luis Alberto</span></div>
+    <div class="h-clip lp-glints"><span class="h-name foil-text" id="hN2">Luis Alberto</span></div>
 
-    <div class="gline" style="margin-top:28px" id="hLine"></div>
+    <div id="hLine"><div class="sp21" style="margin-top:14px" aria-hidden="true"><canvas></canvas><div class="sp-curve"></div><div class="sp-line"></div><div class="sp-line2"></div></div></div>
 
     <div class="h-date-wrap" id="hDate">
       <p class="h-date">07 · Agosto · 2027</p>
@@ -3050,7 +3170,8 @@ section>.adx.adx-b{opacity:.28}
 </section>
 
 <!-- 2. CUENTA REGRESIVA -->
-<section id="countdown">
+<section id="countdown" data-lp-seda>
+<canvas class="lp-seda" aria-hidden="true"></canvas>
   <div class="cd-wave-top" aria-hidden="true">
     <svg viewBox="0 0 800 50" preserveAspectRatio="none">
       <path d="M0,25 Q100,5 200,25 T400,25 T600,25 T800,25" fill="none" stroke="rgba(79,134,230,.26)" stroke-width="1"/>
@@ -3118,7 +3239,7 @@ section>.adx.adx-b{opacity:.28}
 
 
 <!-- 3. UBICACIONES -->
-<section id="location" class="has-ink">
+<section id="location" class="has-ink" data-lp-union="velo">
 <img class="adx adx-s" src="adornos/nube.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="190" style="width:190px;bottom:2%;left:-50px;--adx-d:8s;--adx-w:-3.6s" onerror="this.remove()">
 <img class="adx adx-b" src="adornos/destello.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="92" style="width:92px;top:4%;right:-10px;--adx-d:6s;--adx-w:-1.9s" onerror="this.remove()">
   <div class="ink-bg oval" aria-hidden="true"><i style="background-image:url('ink/ink-corner.webp')"></i></div>
@@ -3148,7 +3269,8 @@ section>.adx.adx-b{opacity:.28}
 
 
 <!-- 4. CALENDAR -->
-<section id="calendar">
+<section id="calendar" data-lp-seda>
+<canvas class="lp-seda" aria-hidden="true"></canvas>
   <span class="lbl">No lo olvides</span>
   <h2 class="ttl">Guarda la Fecha</h2>
   <div class="gline"></div>
@@ -3165,7 +3287,8 @@ section>.adx.adx-b{opacity:.28}
 
 
 <!-- 5. ITINERARIO -->
-<section id="itinerary" aria-labelledby="g73-it-title">
+<section id="itinerary" aria-labelledby="g73-it-title" data-lp-ink>
+<div class="ink-bg" aria-hidden="true"><i style="background-image:url('ink/ink-corner.webp')"></i></div>
 <img class="adx adx-b" src="adornos/destello-b.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="150" style="width:150px;top:1%;left:-40px;--adx-d:7s;--adx-w:-0.2s" onerror="this.remove()">
 <img class="adx adx-s" src="adornos/estrella.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="58" style="width:58px;bottom:2%;right:6px;--adx-d:8s;--adx-w:-5.5s" onerror="this.remove()">
   <div class="g73-it-inner">
@@ -3291,7 +3414,8 @@ section>.adx.adx-b{opacity:.28}
 
 <!-- 7. MESA DE REGALOS -->
 <!-- ── LLUVIA DE SOBRES (diseño boda-jeffersson-y-vanessa) · repintado azul noche / champán / oro ── -->
-<section id="gifts" aria-labelledby="g73-gf-title">
+<section id="gifts" aria-labelledby="g73-gf-title" data-lp-seda>
+<canvas class="lp-seda" aria-hidden="true"></canvas>
 <img class="adx adx-b" src="adornos/luna-estrellas-b.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="200" style="width:200px;top:1%;right:-50px;--adx-d:6s;--adx-w:-3.8s" onerror="this.remove()">
 <img class="adx adx-s" src="adornos/nube.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="170" style="width:170px;bottom:2%;left:-46px;--adx-d:7s;--adx-w:-2.1s" onerror="this.remove()">
   <div class="g73-gf-inner">
@@ -3357,7 +3481,8 @@ section>.adx.adx-b{opacity:.28}
 <!-- 9. DRESS CODE -->
 <!-- ── CÓDIGO DE VESTIMENTA (diseño boda-fabiola-y-fernando + figuras de boda-montserrat-y-cecilia,
      swap de colores de boda-shuroaid-y-daniela) · repintado azul noche / champán / oro ── -->
-<section id="dresscode" aria-label="Código de vestimenta">
+<section id="dresscode" aria-label="Código de vestimenta" data-lp-seda>
+<canvas class="lp-seda" aria-hidden="true"></canvas>
 <img class="adx adx-s" src="adornos/luna-estrellas.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="116" style="width:116px;top:1%;left:-14px;--adx-d:7s;--adx-w:-4.0s" onerror="this.remove()">
 <img class="adx adx-b" src="adornos/destello-b.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="130" style="width:130px;bottom:3%;right:-30px;--adx-d:8s;--adx-w:-2.3s" onerror="this.remove()">
   <div class="c2-dc-wrap">
@@ -3429,7 +3554,8 @@ section>.adx.adx-b{opacity:.28}
 
 
 <!-- PADRINOS -->
-<section id="padrinos" aria-labelledby="g73-pd-header">
+<section id="padrinos" aria-labelledby="g73-pd-header" data-lp-seda>
+<canvas class="lp-seda" aria-hidden="true"></canvas>
   <div class="g73-pd-inner">
     <div class="g73-pd-orn" aria-hidden="true">
       <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 0 L7.6 4.4 L12 6 L7.6 7.6 L6 12 L4.4 7.6 L0 6 L4.4 4.4 Z" fill="currentColor"/></svg>
@@ -3487,7 +3613,8 @@ section>.adx.adx-b{opacity:.28}
 
 
 <!-- 4b. CLIMA -->
-<section id="weather">
+<section id="weather" data-lp-seda>
+<canvas class="lp-seda" aria-hidden="true"></canvas>
   <span class="lbl">Toma tus precauciones</span>
   <h2 class="ttl">El Clima esa Semana</h2>
   <div class="gline"></div>
@@ -3538,7 +3665,9 @@ section>.adx.adx-b{opacity:.28}
 
 <!-- 12. RSVP -->
 <!-- 12. RSVP · X pases (panel-invitados) -->
-<section id="rsvp" aria-label="Confirmación de asistencia">
+<section id="rsvp" aria-label="Confirmación de asistencia" data-lp-ink data-lp-union="seda">
+<div class="lp-flare" data-x="84%" data-y="18%" data-s=".75" aria-hidden="true"></div>
+<div class="ink-bg" aria-hidden="true"><i style="background-image:url('ink/ink-top.webp')"></i></div>
 <img class="adx adx-b" src="adornos/luna-estrellas-b.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="190" style="width:190px;bottom:1%;left:-44px;--adx-d:8s;--adx-w:-4.2s" onerror="this.remove()">
 <img class="adx adx-s" src="adornos/destello.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="80" style="width:80px;top:2%;right:4px;--adx-d:6s;--adx-w:-2.5s" onerror="this.remove()">
   <span class="lbl">Confirmación</span>
@@ -3594,9 +3723,13 @@ section>.adx.adx-b{opacity:.28}
 
 <!-- 13. FOOTER -->
 <footer id="footer">
+  <canvas class="cst" data-modo="apagar" aria-hidden="true"></canvas>
+  <canvas class="lp-caida" data-n="8" data-sprites="assets/particula-estrella-b.webp,assets/particula-polvo.webp" aria-hidden="true"></canvas>
+  <div class="lp-niebla" aria-hidden="true"></div>
   <div class="ft-orn">✦ · ✦ · ✦</div>
-  <div class="ft-nms foil-text">Guadalupe &amp; Luis Alberto</div>
-  <div class="gline" style="margin-top:22px"></div>
+  <div class="ft-nms foil-text lp-cascada">Guadalupe &amp;</div>
+  <div class="ft-nms foil-text lp-cascada">Luis Alberto</div>
+  <div class="sp21" aria-hidden="true"><canvas></canvas><div class="sp-curve"></div><div class="sp-line"></div><div class="sp-line2"></div></div>
   <p class="ft-dt">07 · Agosto · 2027</p>
   <p class="ft-note">Ciudad de México<br>Con amor, los novios</p>
 
@@ -4139,7 +4272,8 @@ section>.adx.adx-b{opacity:.28}
   function initSectionFades(){
     var secs = [].slice.call(document.querySelectorAll('#main-content > section, #main-content > footer'));
     if (!secs.length || secs[0].querySelector('.sf')) return;
-    var PAGE = [10, 20, 48];
+    secs = secs.filter(function(x){ return !x.hasAttribute('data-lp-seda'); });
+    var PAGE = [6, 26, 69];
     function hex(h){ h = h.replace('#',''); return [0,2,4].map(function(k){ return parseInt(h.substr(k,2),16); }); }
     function parse(c){ var m = (c||'').match(/[\d.]+/g); if (!m || (m.length > 3 && +m[3] === 0)) return null; return [+m[0],+m[1],+m[2]]; }
     function grads(sec){ var bi = getComputedStyle(sec).backgroundImage, m = bi && bi.match(/rgba?\([^)]+\)|#[0-9a-f]{6}/gi); return m || null; }
@@ -6173,13 +6307,7 @@ function toast(msg) {
     if (!zz || zz.dataset.luz) return;
     zz.dataset.luz = '1';
 
-    /* Bodoni Moda solo para las horas */
-    if (!document.querySelector('link[href*="Bodoni+Moda"]')){
-      var fl = document.createElement('link');
-      fl.rel = 'stylesheet';
-      fl.href = 'https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;1,6..96,500&display=swap';
-      document.head.appendChild(fl);
-    }
+
 
     var rows = [].slice.call(zz.querySelectorAll('.g73-it-step'));
     var dots = rows.map(function(r){ return r.querySelector('.g73-it-dot'); });
@@ -6578,12 +6706,8 @@ function toast(msg) {
 
   /* ── Adornos: dónde va cada luna (la esquina se ajusta para no tocar texto) ── */
   var SITIOS = [
-    { sel: '#invite',          esq: 'tr', tam: 116 },
     { sel: '#countdown',       esq: 'tl', tam: 196, anillo: true },
-    { sel: '#location',        esq: 'br', tam: 112 },
-    { sel: '#dresscode',       esq: 'tl', tam: 104 },
-    { sel: '#family',          esq: 'tr', tam: 110 },
-    { sel: '#footer',          esq: 'tr', tam: 180, anillo: true }
+    { sel: '#family',          esq: 'tr', tam: 110 }
   ];
 
   /* Lunas PNG que ya existen (adornos de la sección): la mitad, máx. 4, se vuelven lunas vivas.
@@ -6793,6 +6917,271 @@ function toast(msg) {
   if (document.readyState === 'complete') arrancaCuandoListo();
   else window.addEventListener('load', arrancaCuandoListo);
 })();
+</script>
+<!-- FIRMA + LUZ PREMIUM -->
+<script>
+/* ═══ FIRMA · Constelaciones de plata que se trazan (L & G) ═══
+   <canvas class="cst" data-modo="trazar|apagar"></canvas> dentro de un contenedor relative.
+   Estrellas plateadas titilan; en bucle lento se unen con un trazo fino de luz hasta formar L & G.
+   "apagar" (pie): traza una vez por ciclo y se va apagando despacio. Pausa fuera de pantalla. */
+(function(){
+  var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* nodos normalizados (0..1) dentro del área útil del canvas */
+  var L = [[.16,.18],[.15,.46],[.155,.74],[.33,.74]];
+  var G = [[.84,.30],[.73,.17],[.60,.22],[.535,.44],[.585,.68],[.72,.76],[.84,.64],[.845,.49],[.73,.49]];
+  var AMP = [[.445,.40],[.47,.52]];
+  var SEGS = [];
+  function add(arr){ for (var i = 0; i < arr.length - 1; i++) SEGS.push([arr[i], arr[i+1]]); }
+  add(L); add(G);
+  var NODES = L.concat(G, AMP);
+
+  function init(cv){
+    var g = cv.getContext('2d'), dpr = Math.min(2, window.devicePixelRatio || 1), W = 0, H = 0, box = null, dust = [], vis = false, t0 = 0, raf = 0;
+    var modo = cv.getAttribute('data-modo') || 'trazar';
+    var lenTot = 0, segLen = [];
+    function size(){
+      var r = cv.getBoundingClientRect(); W = r.width; H = r.height; if (!W || !H) return;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var bw = Math.min(W * .86, H * 1.25), bh = bw * .62;
+      box = { x: (W - bw) / 2, y: (H - bh) / 2, w: bw, h: bh };
+      dust = []; var n = Math.round(W * H / 2600);
+      for (var i = 0; i < n; i++) dust.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * .9 + .25, ph: Math.random() * 6.3, sp: .5 + Math.random() * 1.6 });
+      lenTot = 0; segLen = SEGS.map(function(s){ var a = P(s[0]), b = P(s[1]), l = Math.hypot(b.x - a.x, b.y - a.y); lenTot += l; return l; });
+    }
+    function P(p){ return { x: box.x + p[0] * box.w, y: box.y + p[1] * box.h }; }
+    function star(x, y, r, a){
+      var gr = g.createRadialGradient(x, y, 0, x, y, r * 5);
+      gr.addColorStop(0, 'rgba(255,255,255,' + a + ')'); gr.addColorStop(.25, 'rgba(226,232,242,' + (a * .55) + ')'); gr.addColorStop(1, 'rgba(192,198,208,0)');
+      g.fillStyle = gr; g.beginPath(); g.arc(x, y, r * 5, 0, 6.283); g.fill();
+      g.globalAlpha = a * .7; g.fillStyle = '#FFFFFF';
+      g.fillRect(x - r * 3.2, y - .35, r * 6.4, .7); g.fillRect(x - .35, y - r * 3.2, .7, r * 6.4);
+      g.globalAlpha = 1;
+    }
+    var CYC = modo === 'apagar' ? 18 : 14;
+    function frame(ts){
+      if (!box) { size(); if (!box) return; }
+      var t = RM ? 7 : ((ts - t0) / 1000) % CYC;
+      g.clearRect(0, 0, W, H);
+      /* polvo de estrellas de fondo */
+      for (var i = 0; i < dust.length; i++){
+        var d = dust[i], a = RM ? .5 : .5 + .5 * Math.sin(ts / 1000 * d.sp + d.ph);
+        g.globalAlpha = a * a * .75; g.fillStyle = i % 4 ? '#E9EDF4' : '#9FB8E8';
+        g.beginPath(); g.arc(d.x, d.y, d.r, 0, 6.283); g.fill();
+      }
+      g.globalAlpha = 1;
+      /* curva de ciclo: aparición 0-1.5 · trazo 1.5-6 · brillo · desvanecer */
+      var stars = Math.min(1, t / 1.5), draw = Math.min(1, Math.max(0, (t - 1.5) / 4.5)), fade = 1;
+      if (modo === 'apagar') { if (t > 7) fade = Math.max(.18, 1 - (t - 7) / 8); }
+      else if (t > 10.5) fade = Math.max(0, 1 - (t - 10.5) / 2.5);
+      if (RM) { stars = 1; draw = 1; fade = 1; }
+      /* trazos */
+      var len = draw * lenTot;
+      g.lineCap = 'round'; g.lineWidth = 1.1;
+      g.shadowColor = 'rgba(214,224,240,.9)'; g.shadowBlur = 8;
+      for (var k = 0; k < SEGS.length && len > 0; k++){
+        var a0 = P(SEGS[k][0]), b0 = P(SEGS[k][1]), f = Math.min(1, len / segLen[k]); len -= segLen[k];
+        var x1 = a0.x + (b0.x - a0.x) * f, y1 = a0.y + (b0.y - a0.y) * f;
+        g.strokeStyle = 'rgba(222,230,242,' + (.62 * fade) + ')';
+        g.beginPath(); g.moveTo(a0.x, a0.y); g.lineTo(x1, y1); g.stroke();
+        if (f < 1 && !RM){ g.shadowBlur = 0; star(x1, y1, 1.6, .95 * fade); g.shadowBlur = 8; }
+      }
+      g.shadowBlur = 0;
+      /* pulso de luz que recorre la figura cuando ya está trazada */
+      var pulse = (!RM && t > 6 && t < 10.5) ? (t - 6) / 4.5 : -1;
+      for (var n = 0; n < NODES.length; n++){
+        var p = P(NODES[n]), tw = RM ? .9 : .72 + .28 * Math.sin(ts / 700 + n * 1.7);
+        var boost = pulse >= 0 ? Math.max(0, 1 - Math.abs(pulse * NODES.length - n) / 1.6) * .6 : 0;
+        star(p.x, p.y, n >= L.length + G.length ? 1.1 : 1.5, Math.min(1, (tw + boost) * stars * (modo === 'apagar' ? Math.max(.35, fade) : 1)));
+      }
+    }
+    function loop(ts){ if (!vis) return; if (!t0) t0 = ts; frame(ts); raf = requestAnimationFrame(loop); }
+    size(); addEventListener('resize', function(){ box = null; });
+    if (RM) { frame(0); return; }
+    new IntersectionObserver(function(es){
+      vis = es[0].isIntersecting; cancelAnimationFrame(raf);
+      if (vis && !document.hidden) raf = requestAnimationFrame(loop);
+    }, { rootMargin: '80px' }).observe(cv);
+    document.addEventListener('visibilitychange', function(){ cancelAnimationFrame(raf); if (vis && !document.hidden) raf = requestAnimationFrame(loop); });
+  }
+  function boot(){ document.querySelectorAll('canvas.cst').forEach(init); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+
+/* ═══ Sparkles (21st · efecto 29) en PLATA: línea de luz curva + polvo de estrellas ═══ */
+(function(){
+  var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.sp21 canvas').forEach(function(cv){
+    var g = cv.getContext('2d'), dpr = Math.min(2, window.devicePixelRatio || 1), W, H, P = [], vis = false, raf = 0;
+    function size(){ var r = cv.getBoundingClientRect(); W = r.width; H = r.height; if (!W) return; cv.width = W * dpr; cv.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      P = []; var n = Math.round(W * H / 110); for (var i = 0; i < n; i++) P.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.05 + .25, ph: Math.random() * 6.3, sp: .6 + Math.random() * 2.2, vx: (Math.random() - .5) * .12, vy: -Math.random() * .08 }); }
+    function draw(t){ g.clearRect(0, 0, W, H);
+      for (var i = 0; i < P.length; i++){ var p = P[i];
+        if (!RM){ p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = W; if (p.x > W) p.x = 0; if (p.y < 0) p.y = H; }
+        var a = RM ? .6 : .5 + .5 * Math.sin(t / 1000 * p.sp + p.ph); g.globalAlpha = a * a; g.fillStyle = i % 5 ? '#F4F7FC' : '#AFC6F0';
+        g.beginPath(); g.arc(p.x, p.y, p.r, 0, 6.283); g.fill(); }
+      g.globalAlpha = 1; }
+    function loop(t){ if (!vis) return; draw(t); raf = requestAnimationFrame(loop); }
+    size(); addEventListener('resize', size);
+    if (RM) { draw(0); return; }
+    new IntersectionObserver(function(es){ vis = es[0].isIntersecting; cancelAnimationFrame(raf); if (vis && !document.hidden) raf = requestAnimationFrame(loop); }).observe(cv);
+    document.addEventListener('visibilitychange', function(){ cancelAnimationFrame(raf); if (vis && !document.hidden) raf = requestAnimationFrame(loop); });
+  });
+})();
+</script>
+<script>
+window.LP_CONFIG = {
+  flareMini: 'assets/flare-mini.webp',
+  seda:    { sombra:'#030E2C', base:'#0E2A63', luz:'#AFC0DE' },
+  borde:   '#061A45',
+  fundido: 220,
+  cortina: { sombra:'#061A45', base:'#1D4C9E', luz:'#DCE4F2' },
+  niebla:  '96,126,196'
+};
+</script>
+<script>
+/* ═══ Luz Premium Elysium · aprobados (1, 2, 3, 8, 10, 12, 14) ═══
+   Copiar TAL CUAL al final del <body> (después del HTML de las secciones).
+   Configuración por invitación, ANTES de este script:
+     window.LP_CONFIG = {
+       flareMini: 'assets/flare-mini.webp',
+       seda:    { sombra:'#3B2F4A', base:'#B9A6C9', luz:'#FFF4E6' },  // 3 tonos de la paleta (oscuro, medio, brillo)
+       borde:   '#F6F2EC',      // color de borde que comparten TODAS las secciones claras (la seda se funde desde aquí)
+       fundido: 220,            // alto en px del fundido de la seda
+       cortina: { sombra:'#7A5A33', base:'#C9A86E', luz:'#FFF4DC' },  // metálico para data-lp-union="seda"
+       niebla:  '236,240,246',  // r,g,b de la niebla
+       causticas: '#FFF8E4'     // color de la luz de las cáusticas
+     };
+   Todo se pausa fuera de pantalla y con la pestaña oculta; con prefers-reduced-motion queda en un cuadro fijo. */
+(function(){
+  var C=window.LP_CONFIG||{}, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function vis(el,cb){if(!('IntersectionObserver' in window)){cb(true);return}new IntersectionObserver(function(es){es.forEach(function(e){cb(e.isIntersecting)})},{rootMargin:'120px'}).observe(el)}
+  function hidden(){return document.hidden}
+  function hex(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(function(c){return c+c}).join('');return[parseInt(h.slice(0,2),16)/255,parseInt(h.slice(2,4),16)/255,parseInt(h.slice(4,6),16)/255]}
+  function fit(c,scale,max){var r=c.getBoundingClientRect(),d=Math.min(max||2,devicePixelRatio||1)*(scale||1);c.width=Math.max(1,Math.round(r.width*d));c.height=Math.max(1,Math.round(r.height*d));return d}
+  function img(s){var i=new Image();i.src=s;return i}
+  var FM=img(C.flareMini||'assets/flare-mini.webp');
+
+  /* 1 · destello + fantasmas a lo largo del eje que cruza el centro del contenedor */
+  document.querySelectorAll('.lp-flare').forEach(function(host,idx){
+    var box=host.parentElement, wrap=document.createElement('div');wrap.className='lp-flare-wrap';box.appendChild(wrap);host.remove();
+    var del=(-idx*2.9)+'s', s=parseFloat(host.dataset.s||1);
+    function build(){wrap.innerHTML='';var W=box.clientWidth,H=box.clientHeight,fx=W*parseFloat(host.dataset.x||18)/100,fy=H*parseFloat(host.dataset.y||20)/100,cx=W/2,cy=H/2;
+      var f=document.createElement('div');f.className='lp-fl';f.style.cssText='left:'+fx+'px;top:'+fy+'px;--s:'+s+';--del:'+del;f.innerHTML='<b></b>';wrap.appendChild(f);
+      [[.55,14,'255,236,200',.4,0],[.85,34,'170,220,255',.28,1],[1.15,10,'255,255,255',.45,0],[1.4,56,'255,190,210',.22,1],[1.7,22,'200,255,230',.3,0]].forEach(function(q){
+        var g=document.createElement('i');g.className='lp-ghost'+(q[4]?' hex':'');var k=q[0]*1.67,x=fx+(cx-fx)*k,y=fy+(cy-fy)*k,z=q[1]*s;
+        g.style.cssText='left:'+(x-z/2)+'px;top:'+(y-z/2)+'px;width:'+z+'px;height:'+z+'px;--o:'+q[3]+';--del:'+del+';background:radial-gradient(circle,rgba('+q[2]+',.9) 0 40%,transparent 72%)';wrap.appendChild(g)})}
+    build();addEventListener('resize',build)});
+
+  /* 2 · chispas de diamante en el filo superior de las letras, una a la vez */
+  document.querySelectorAll('.lp-glints').forEach(function(gb,idx){var on=false;vis(gb,function(v){on=v});
+    function glint(){ if(on&&!reduce&&!hidden()){var w=gb.clientWidth,h=gb.clientHeight,d=document.createElement('i');d.className='lp-glint';
+      d.style.left=(w*.12+Math.random()*w*.76)+'px';d.style.top=(h*.22+Math.random()*h*.3)+'px';gb.appendChild(d);
+      d.animate([{opacity:0,transform:'scale(.2) rotate(-25deg)'},{opacity:1,transform:'scale(1) rotate(0)'},{opacity:0,transform:'scale(.2) rotate(25deg)'}],{duration:1100,easing:'ease-in-out'}).onfinish=function(){d.remove()}}
+      setTimeout(glint,700+Math.random()*900)}
+    setTimeout(glint,idx*400)});
+
+  /* 3 · caída temática: giro 3D + destello cuando la cara mira a la luz */
+  document.querySelectorAll('.lp-caida').forEach(function(c){
+    var x=c.getContext('2d'),d=fit(c),on=false,S=(c.dataset.sprites||'').split(',').filter(Boolean).map(img),n=parseInt(c.dataset.n||(innerWidth<600?14:20)),P=[];
+    for(var i=0;i<n;i++){var z=Math.random();P.push({x:Math.random(),y:Math.random()*1.1-.1,z:z,v:.025+z*.035,s:16+z*22,r:Math.random()*6.28,sp:(Math.random()-.5)*.8,a:Math.random()*6.28,w:1.2+Math.random()*1.8,k:i,ph:Math.random()*6.28})}
+    vis(c,function(v){on=v});addEventListener('resize',function(){d=fit(c)});
+    (function loop(t){ if(on&&!hidden()&&S.length){var W=c.width,H=c.height;x.clearRect(0,0,W,H);
+      P.forEach(function(p){ if(!reduce){p.y+=p.v/60;if(p.y>1.1){p.y=-.1;p.x=Math.random()}p.a+=p.w/60;p.r+=p.sp/60}
+        var im=S[p.k%S.length];if(!im.complete||!im.naturalWidth)return;
+        var X=(p.x+Math.sin(t/1800+p.ph)*.03)*W,Y=p.y*H,sz=p.s*d,ar=im.naturalHeight/im.naturalWidth,fl=Math.cos(p.a),face=Math.pow(Math.max(0,fl),14);
+        x.save();x.translate(X,Y);x.rotate(p.r);x.scale(Math.max(.14,Math.abs(fl))*(fl<0?-1:1),1);
+        x.globalAlpha=.5+p.z*.4;x.drawImage(im,-sz/2,-sz*ar/2,sz,sz*ar);
+        if(face>.05){x.globalCompositeOperation='lighter';x.globalAlpha=face*.7;x.drawImage(im,-sz/2,-sz*ar/2,sz,sz*ar);x.globalCompositeOperation='source-over'}
+        x.restore();
+        if(face>.7&&FM.complete){x.globalAlpha=(face-.7)/.3;var zz=sz*1.6;x.drawImage(FM,X-zz/2+sz*.15,Y-zz/2-sz*.15,zz,zz)}});
+      x.globalAlpha=1} requestAnimationFrame(loop)})(0)});
+
+  /* WebGL: utilidades */
+  function prog(gl,fs){var vs='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+    function sh(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o}
+    var pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);gl.useProgram(pr);
+    var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    var l=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);return pr}
+  var HP='#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n';
+
+  /* 8 · cáusticas en GPU (una sola canvas por escena) */
+  document.querySelectorAll('.lp-causticas').forEach(function(c){
+    var gl=c.getContext('webgl',{premultipliedAlpha:true,alpha:true,antialias:false});if(!gl){c.remove();return}
+    var pr=prog(gl,HP+'uniform vec2 res;uniform float t;uniform vec3 col;void main(){vec2 uv=gl_FragCoord.xy/res;float time=t*.35+23.;vec2 p=uv*6.28318*vec2(1.4*res.x/res.y/1.5,1.)-250.;vec2 i=p;float c=1.;float inten=.005;'+
+      'for(int n=0;n<5;n++){float tt=time*(1.-(3.5/float(n+1)));i=p+vec2(cos(tt-i.x)+sin(tt+i.y),sin(tt-i.y)+cos(tt+i.x));c+=1./length(vec2(p.x/(sin(i.x+tt)/inten),p.y/(cos(i.y+tt)/inten)));}'+
+      'c/=5.;c=1.17-pow(c,1.4);float v=clamp(pow(abs(c),8.),0.,1.);gl_FragColor=vec4(col*v,v*.92);}');
+    var uR=gl.getUniformLocation(pr,'res'),uT=gl.getUniformLocation(pr,'t'),uC=gl.getUniformLocation(pr,'col'),on=false,col=hex(C.causticas||'#FFF8E4');
+    function size(){fit(c,.75,1.5);gl.viewport(0,0,c.width,c.height)}size();addEventListener('resize',size);vis(c,function(v){on=v});
+    (function loop(t){ if((on&&!hidden())||t===0){gl.uniform2f(uR,c.width,c.height);gl.uniform1f(uT,reduce?0:t/1000);gl.uniform3f(uC,col[0],col[1],col[2]);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
+      requestAnimationFrame(loop)})(0)});
+
+  /* 10 · cascada: separa el texto en letras */
+  document.querySelectorAll('.lp-cascada').forEach(function(el){var t=el.textContent;el.textContent='';el.setAttribute('aria-label',t);
+    t.split('').forEach(function(ch,i){var s=document.createElement('span');s.setAttribute('aria-hidden','true');s.style.setProperty('--i',i);if(ch===' '){s.className='sp';s.innerHTML='&nbsp;'}else s.textContent=ch;el.appendChild(s)})});
+
+  /* 12 · niebla: textura generada UNA vez y compartida por todas las capas */
+  var nieblas=document.querySelectorAll('.lp-niebla');
+  if(nieblas.length){var w=512,h=160,cv=document.createElement('canvas');cv.width=w;cv.height=h;var g=cv.getContext('2d'),tono=C.niebla||'236,240,246';
+    function blob(x,y,r,a){var gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,'rgba('+tono+','+a+')');gr.addColorStop(1,'rgba('+tono+',0)');g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,6.29);g.fill()}
+    /* blobs dentro del alto de la textura: ninguna orilla queda cortada en seco */
+    for(var i=0;i<150;i++){var X=Math.random()*w,Y=h*.32+Math.random()*h*.36,R=16+Math.random()*(Math.min(Y,h-Y)-6),A=.05+Math.random()*.12;blob(X,Y,R,A);blob(X-w,Y,R,A);blob(X+w,Y,R,A)}
+    var url='url('+cv.toDataURL()+')';nieblas.forEach(function(n){for(var k=0;k<3;k++){var l=document.createElement('i');l.style.backgroundImage=url;n.appendChild(l)}})}
+
+  /* 15 · velo de luz y 17 · cortina de seda en la unión: data-lp-union="velo" | "seda" en la sección de ABAJO */
+  var velos=[];
+  document.querySelectorAll('[data-lp-union]').forEach(function(sec){
+    var tipo=sec.getAttribute('data-lp-union'),u=document.createElement('div');u.className='lp-union lp-union--'+tipo;u.setAttribute('aria-hidden','true');
+    if(getComputedStyle(sec).position==='static')sec.style.position='relative';
+    if(tipo==='seda'){var cs=C.cortina||{},cv=document.createElement('canvas');cv.className='lp-seda';
+      if(cs.sombra)cv.dataset.sombra=cs.sombra;if(cs.base)cv.dataset.base=cs.base;if(cs.luz)cv.dataset.luz=cs.luz;u.appendChild(cv)}
+    else velos.push(u);
+    sec.insertBefore(u,sec.firstChild)});
+  if(velos.length){var vt=0;function velo(){vt=0;var mid=innerHeight/2;velos.forEach(function(v){var r=v.getBoundingClientRect(),c=r.top+r.height/2,d=Math.abs(c-mid)/(innerHeight*.5);v.style.opacity=reduce?.5:Math.max(0,1-d*1.4).toFixed(3)})}
+    addEventListener('scroll',function(){if(!vt)vt=requestAnimationFrame(velo)},{passive:true});addEventListener('resize',velo);velo()}
+
+  /* 14b · fundido de la seda: la transición va COMPLETA dentro de la sección con seda, desde el color EXACTO del borde
+     de la sección vecina (LP_CONFIG.borde, p. ej. el marfil que comparten todas las secciones claras) → transparente.
+     Así la línea de unión es del mismo color de los dos lados y no queda franja gris ni corte.
+     Por sección: data-lp-borde-top / data-lp-borde-bot = otro color o "none" (sin fundido de ese lado). */
+  /* el color viaja del borde hacia el tono medio de la seda mientras se vuelve transparente: no pasa por gris */
+  function smooth(col,dir,tint){var c=col.split(',').map(Number),b=(tint||col).split(',').map(Number),st=[];
+    for(var i=0;i<=8;i++){var t=i/8,a=1-t*t*(3-2*t),k=t*.7,m=c.map(function(v,j){return Math.round(v+(b[j]-v)*k)}).join(',');st.push('rgba('+m+','+a.toFixed(3)+') '+(t*100).toFixed(1)+'%')}
+    return 'linear-gradient('+dir+','+st.join(',')+')'}
+  function rgb(c){if(!c)return null;if(c.indexOf('rgb')===0)return c.replace(/rgba?\(|\)/g,'').split(',').slice(0,3).map(function(x){return x.trim()}).join(',');var h=hex(c);return h.map(function(v){return Math.round(v*255)}).join(',')}
+  document.querySelectorAll('.lp-seda').forEach(function(cv){var sec=cv.parentElement;if(!sec||sec.classList.contains('lp-union'))return;
+    /* en secciones cortas el fundido no pasa del 30% del alto, para que la seda se siga viendo */
+    var fades=[];function alto(){var h=Math.round(Math.min(C.fundido||220,sec.offsetHeight*.3))+'px';fades.forEach(function(f){f.style.height=h})}
+    addEventListener('resize',alto);setTimeout(alto,0);addEventListener('load',alto);
+    var H=(C.fundido||220)+'px';[['top','to bottom'],['bot','to top']].forEach(function(s){
+      var v=sec.getAttribute('data-lp-borde-'+s[0]);if(v==='none')return;var col=rgb(v||C.borde);if(!col)return;
+      var tint=rgb(cv.dataset.base||(C.seda||{}).base);
+      var f=document.createElement('div');f.className='lp-sfade lp-sfade--'+s[0];f.setAttribute('aria-hidden','true');f.style.height=H;f.style.backgroundImage=smooth(col,s[1],tint);sec.insertBefore(f,cv.nextSibling);fades.push(f)});alto()});
+
+  /* 14 · seda iluminada: UN contexto WebGL compartido que dibuja cada sección visible y la copia a su canvas 2D */
+  var sedas=[].slice.call(document.querySelectorAll('.lp-seda'));
+  if(sedas.length){var G=document.createElement('canvas'),gl=G.getContext('webgl',{preserveDrawingBuffer:true,antialias:false});
+    if(!gl){sedas.forEach(function(s){s.remove()})}else{
+      var pr=prog(gl,HP+'uniform vec2 res;uniform float t;uniform float seed;uniform vec3 cS,cB,cL;'+
+        'float h(vec2 p){return sin(p.x*3.1+p.y*1.3+t*.6)*.55+sin(p.x*1.7-p.y*2.2-t*.45)*.35+sin(p.x*5.3+p.y*.7+t*.8)*.12;}'+
+        'void main(){vec2 uv=gl_FragCoord.xy/res;vec2 p=vec2(uv.x*2.,uv.y*1.4*(res.y/res.x)*1.4)+seed;float e=.01;'+
+        'float hx=(h(p+vec2(e,0.))-h(p-vec2(e,0.)))/(2.*e),hy=(h(p+vec2(0.,e))-h(p-vec2(0.,e)))/(2.*e);'+
+        'vec3 n=normalize(vec3(-hx*.35,-hy*.35,1.));vec3 l=normalize(vec3(cos(t*.25)*.7,.5,.6));float dif=max(0.,dot(n,l));'+
+        'vec3 hv=normalize(l+vec3(0.,0.,1.));float spec=pow(max(0.,dot(n,hv)),40.);'+
+        'vec3 col=mix(cS,cB,.25+dif*.75)+cL*spec*.32+cL*pow(dif,8.)*.06;gl_FragColor=vec4(min(col,vec3(1.)),1.);}');
+      var u={r:gl.getUniformLocation(pr,'res'),t:gl.getUniformLocation(pr,'t'),s:gl.getUniformLocation(pr,'seed'),S:gl.getUniformLocation(pr,'cS'),B:gl.getUniformLocation(pr,'cB'),L:gl.getUniformLocation(pr,'cL')};
+      var items=sedas.map(function(cv,i){var pal=Object.assign({sombra:'#4A3B2E',base:'#C9A97E',luz:'#FFF4E0'},C.seda||{},{sombra:cv.dataset.sombra||(C.seda||{}).sombra,base:cv.dataset.base||(C.seda||{}).base,luz:cv.dataset.luz||(C.seda||{}).luz});
+        Object.keys(pal).forEach(function(k){if(!pal[k])delete pal[k]});pal=Object.assign({sombra:'#4A3B2E',base:'#C9A97E',luz:'#FFF4E0'},pal);
+        var it={cv:cv,x:cv.getContext('2d'),on:false,seed:i*3.7,S:hex(pal.sombra),B:hex(pal.base),L:hex(pal.luz),first:true};
+        function sz(){var r=cv.getBoundingClientRect();cv.width=Math.max(2,Math.round(r.width*.5));cv.height=Math.max(2,Math.round(r.height*.5))}sz();addEventListener('resize',function(){sz();it.first=true});
+        vis(cv,function(v){it.on=v});return it});
+      var fr=0;
+      (function loop(t){ if(!hidden()&&((fr++&1)===0)){items.forEach(function(it){ if(!(it.on||it.first))return; if(reduce&&!it.first)return; it.first=false;
+          var w=it.cv.width,h=it.cv.height;if(G.width!==w||G.height!==h){G.width=w;G.height=h}gl.viewport(0,0,w,h);
+          gl.uniform2f(u.r,w,h);gl.uniform1f(u.t,reduce?0:t/1000);gl.uniform1f(u.s,it.seed);gl.uniform3fv(u.S,it.S);gl.uniform3fv(u.B,it.B);gl.uniform3fv(u.L,it.L);
+          gl.drawArrays(gl.TRIANGLE_STRIP,0,4);it.x.drawImage(G,0,0)})}
+        requestAnimationFrame(loop)})(0)}}
+})();
+
 </script>
 </body>
 </html>

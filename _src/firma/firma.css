@@ -1,0 +1,33 @@
+/* ═══ FIRMA · constelación + Sparkles 21st (plata) ═══ */
+canvas.cst{position:absolute;pointer-events:none;z-index:2}
+#hero canvas.cst{left:0;right:0;bottom:6%;height:58%;width:100%;opacity:.8;
+  -webkit-mask-image:radial-gradient(75% 70% at 50% 50%,#000 45%,transparent 100%);mask-image:radial-gradient(75% 70% at 50% 50%,#000 45%,transparent 100%)}
+#footer{position:relative;isolation:isolate;overflow-x:clip;background:radial-gradient(at 50% 30%,rgba(192,198,208,.06),transparent 50%),linear-gradient(to bottom,rgba(11,36,87,0) 0%,rgba(11,36,87,.55) 40%,#071C4A 100%)!important}
+#footer canvas.cst{left:0;right:0;top:0;height:62%;width:100%;z-index:0;opacity:.75;
+  -webkit-mask-image:radial-gradient(70% 70% at 50% 45%,#000 40%,transparent 100%);mask-image:radial-gradient(70% 70% at 50% 45%,#000 40%,transparent 100%)}
+#footer > *:not(canvas):not(.lp-niebla):not(.lp-caida){position:relative;z-index:3}
+
+.sp21{position:relative;width:100%;max-width:340px;height:96px;margin:18px auto 0;pointer-events:none}
+.sp21 .sp-line{position:absolute;left:50%;top:0;transform:translateX(-50%);height:2px;width:78%;z-index:3;
+  background:linear-gradient(90deg,transparent,#AEB4C0 30%,#FFFFFF 50%,#AEB4C0 70%,transparent);box-shadow:0 0 22px 4px rgba(200,212,236,.5)}
+.sp21 .sp-line2{position:absolute;left:50%;top:0;transform:translateX(-50%);height:6px;width:32%;margin-top:-2px;z-index:3;
+  background:linear-gradient(90deg,transparent,#FFFFFF,transparent);filter:blur(4px)}
+.sp21 canvas{position:absolute;left:0;right:0;top:0;height:100%;width:100%;
+  -webkit-mask-image:radial-gradient(60% 80% at 50% 0%,#000 30%,transparent 100%);mask-image:radial-gradient(60% 80% at 50% 0%,#000 30%,transparent 100%)}
+.sp21 .sp-curve{position:absolute;left:-12%;right:-12%;top:5px;height:200%;border-radius:50% 50% 0 0;z-index:2;
+  background:radial-gradient(120% 60% at 50% 0%,rgba(6,26,69,.0),rgba(6,26,69,0) 60%);box-shadow:0 -8px 26px -12px rgba(200,212,236,.45)}
+
+/* Nombres sin script (serif de la plantilla); el "&" queda en script */
+#hero .h-name{font-family:'Playfair Display',serif!important;font-weight:600!important;font-size:clamp(38px,10.6vw,48px)!important;letter-spacing:.015em;line-height:1.12}
+.ft-nms{font-family:'Playfair Display',serif!important;font-weight:600!important;font-size:clamp(28px,8vw,36px)!important;line-height:1.25!important;letter-spacing:.01em}
+#invite .heading{font-family:'Playfair Display',serif!important;font-weight:600!important;font-size:clamp(32px,9vw,40px)!important;line-height:1.2!important}
+.fam-name{font-family:'Playfair Display',serif!important;font-weight:500!important;font-size:clamp(22px,6.2vw,25px)!important;line-height:1.35!important}
+#hero .h-clip.lp-glints{display:inline-block}
+/* loader: estrellas en los vértices de la constelación */
+.ld-star{fill:#FFFFFF;opacity:.2;animation:ldTw 2.6s ease-in-out infinite}
+@keyframes ldTw{0%,100%{opacity:.25}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.ld-star{animation:none;opacity:.8}}
+
+#rsvp > .ink-bg,#itinerary > .ink-bg{-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 72%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 72%,transparent 100%)}
+[data-lp-seda],#rsvp,#itinerary,#location,#album,#family,#invite{background:transparent!important}
+#main-content > section,#footer{border-top:0!important;border-bottom:0!important}
