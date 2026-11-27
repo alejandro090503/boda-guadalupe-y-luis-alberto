@@ -53,7 +53,7 @@ rep('  <div class="h-particles" id="hPart"></div>\n',
     '  <div class="lp-niebla" aria-hidden="true"></div>\n  <div class="lp-flare" data-x="80%" data-y="14%" data-s="1" aria-hidden="true"></div>\n')
 rep('<div class="h-clip"><span class="h-name foil-text" id="hN1">', '<div class="h-clip lp-glints"><span class="h-name foil-text" id="hN1">')
 rep('<div class="h-clip"><span class="h-name foil-text" id="hN2">', '<div class="h-clip lp-glints"><span class="h-name foil-text" id="hN2">')
-SP = '<div class="sp21" aria-hidden="true"><canvas></canvas><div class="sp-curve"></div><div class="sp-line"></div><div class="sp-line2"></div></div>'
+SP = '<div class="sp21" aria-hidden="true"><div class="sp-fl"></div><div class="sp-hz"></div><canvas></canvas></div>'
 rep('    <div class="gline" style="margin-top:28px" id="hLine"></div>', '    <div id="hLine">' + SP.replace('class="sp21"', 'class="sp21" style="margin-top:14px"') + '</div>')
 
 # ── PIE: constelación que se apaga + sparkles + caída + niebla ──

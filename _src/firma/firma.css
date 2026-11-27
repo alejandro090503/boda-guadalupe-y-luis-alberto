@@ -7,15 +7,16 @@ canvas.cst{position:absolute;pointer-events:none;z-index:2}
   -webkit-mask-image:radial-gradient(70% 70% at 50% 45%,#000 40%,transparent 100%);mask-image:radial-gradient(70% 70% at 50% 45%,#000 40%,transparent 100%)}
 #footer > *:not(canvas):not(.lp-niebla):not(.lp-caida){position:relative;z-index:3}
 
-.sp21{position:relative;width:100%;max-width:340px;height:96px;margin:18px auto 0;pointer-events:none}
-.sp21 .sp-line{position:absolute;left:50%;top:0;transform:translateX(-50%);height:2px;width:78%;z-index:3;
-  background:linear-gradient(90deg,transparent,#AEB4C0 30%,#FFFFFF 50%,#AEB4C0 70%,transparent);box-shadow:0 0 22px 4px rgba(200,212,236,.5)}
-.sp21 .sp-line2{position:absolute;left:50%;top:0;transform:translateX(-50%);height:6px;width:32%;margin-top:-2px;z-index:3;
-  background:linear-gradient(90deg,transparent,#FFFFFF,transparent);filter:blur(4px)}
-.sp21 canvas{position:absolute;left:0;right:0;top:0;height:100%;width:100%;
-  -webkit-mask-image:radial-gradient(60% 80% at 50% 0%,#000 30%,transparent 100%);mask-image:radial-gradient(60% 80% at 50% 0%,#000 30%,transparent 100%)}
-.sp21 .sp-curve{position:absolute;left:-12%;right:-12%;top:5px;height:200%;border-radius:50% 50% 0 0;z-index:2;
-  background:radial-gradient(120% 60% at 50% 0%,rgba(6,26,69,.0),rgba(6,26,69,0) 60%);box-shadow:0 -8px 26px -12px rgba(200,212,236,.45)}
+.sp21{position:relative;width:100%;max-width:360px;height:118px;margin:18px auto 0;pointer-events:none}
+.sp21 .sp-hz{position:absolute;left:50%;top:0;z-index:3;transform:translateX(-50%);width:80%;height:1.5px;
+  background:linear-gradient(90deg,transparent,#9098A4 22%,#FFFFFF 50%,#9098A4 78%,transparent);box-shadow:0 0 18px 3px rgba(206,216,234,.5)}
+.sp21 .sp-hz::after{content:"";position:absolute;left:35%;right:35%;top:-3px;height:7px;background:radial-gradient(closest-side,#FFFFFF,transparent);filter:blur(3px)}
+.sp21 .sp-fl{position:absolute;left:50%;top:0;width:220px;height:220px;margin:-110px 0 0 -110px;z-index:3;background:url(assets/flare-plata.webp) center/contain no-repeat;
+  mix-blend-mode:screen;opacity:.55;animation:spFl 7s ease-in-out infinite}
+@keyframes spFl{0%,100%{opacity:.35;transform:scale(.9)}50%{opacity:.72;transform:scale(1.05)}}
+.sp21 canvas{position:absolute;left:0;right:0;top:0;height:100%;width:100%;z-index:2;
+  -webkit-mask-image:radial-gradient(62% 90% at 50% 0%,#000 25%,transparent 100%);mask-image:radial-gradient(62% 90% at 50% 0%,#000 25%,transparent 100%)}
+@media(prefers-reduced-motion:reduce){.sp21 .sp-fl{animation:none}}
 
 /* Nombres sin script (serif de la plantilla); el "&" queda en script */
 #hero .h-name{font-family:'Playfair Display',serif!important;font-weight:600!important;font-size:clamp(38px,10.6vw,48px)!important;letter-spacing:.015em;line-height:1.12}

@@ -3004,15 +3004,16 @@ canvas.cst{position:absolute;pointer-events:none;z-index:2}
   -webkit-mask-image:radial-gradient(70% 70% at 50% 45%,#000 40%,transparent 100%);mask-image:radial-gradient(70% 70% at 50% 45%,#000 40%,transparent 100%)}
 #footer > *:not(canvas):not(.lp-niebla):not(.lp-caida){position:relative;z-index:3}
 
-.sp21{position:relative;width:100%;max-width:340px;height:96px;margin:18px auto 0;pointer-events:none}
-.sp21 .sp-line{position:absolute;left:50%;top:0;transform:translateX(-50%);height:2px;width:78%;z-index:3;
-  background:linear-gradient(90deg,transparent,#AEB4C0 30%,#FFFFFF 50%,#AEB4C0 70%,transparent);box-shadow:0 0 22px 4px rgba(200,212,236,.5)}
-.sp21 .sp-line2{position:absolute;left:50%;top:0;transform:translateX(-50%);height:6px;width:32%;margin-top:-2px;z-index:3;
-  background:linear-gradient(90deg,transparent,#FFFFFF,transparent);filter:blur(4px)}
-.sp21 canvas{position:absolute;left:0;right:0;top:0;height:100%;width:100%;
-  -webkit-mask-image:radial-gradient(60% 80% at 50% 0%,#000 30%,transparent 100%);mask-image:radial-gradient(60% 80% at 50% 0%,#000 30%,transparent 100%)}
-.sp21 .sp-curve{position:absolute;left:-12%;right:-12%;top:5px;height:200%;border-radius:50% 50% 0 0;z-index:2;
-  background:radial-gradient(120% 60% at 50% 0%,rgba(6,26,69,.0),rgba(6,26,69,0) 60%);box-shadow:0 -8px 26px -12px rgba(200,212,236,.45)}
+.sp21{position:relative;width:100%;max-width:360px;height:118px;margin:18px auto 0;pointer-events:none}
+.sp21 .sp-hz{position:absolute;left:50%;top:0;z-index:3;transform:translateX(-50%);width:80%;height:1.5px;
+  background:linear-gradient(90deg,transparent,#9098A4 22%,#FFFFFF 50%,#9098A4 78%,transparent);box-shadow:0 0 18px 3px rgba(206,216,234,.5)}
+.sp21 .sp-hz::after{content:"";position:absolute;left:35%;right:35%;top:-3px;height:7px;background:radial-gradient(closest-side,#FFFFFF,transparent);filter:blur(3px)}
+.sp21 .sp-fl{position:absolute;left:50%;top:0;width:220px;height:220px;margin:-110px 0 0 -110px;z-index:3;background:url(assets/flare-plata.webp) center/contain no-repeat;
+  mix-blend-mode:screen;opacity:.55;animation:spFl 7s ease-in-out infinite}
+@keyframes spFl{0%,100%{opacity:.35;transform:scale(.9)}50%{opacity:.72;transform:scale(1.05)}}
+.sp21 canvas{position:absolute;left:0;right:0;top:0;height:100%;width:100%;z-index:2;
+  -webkit-mask-image:radial-gradient(62% 90% at 50% 0%,#000 25%,transparent 100%);mask-image:radial-gradient(62% 90% at 50% 0%,#000 25%,transparent 100%)}
+@media(prefers-reduced-motion:reduce){.sp21 .sp-fl{animation:none}}
 
 /* Nombres sin script (serif de la plantilla); el "&" queda en script */
 #hero .h-name{font-family:'Playfair Display',serif!important;font-weight:600!important;font-size:clamp(38px,10.6vw,48px)!important;letter-spacing:.015em;line-height:1.12}
@@ -3130,7 +3131,7 @@ canvas.cst{position:absolute;pointer-events:none;z-index:2}
     <div class="h-amp-clip"><span class="h-amp foil-text" id="hAmp">&amp;</span></div>
     <div class="h-clip lp-glints"><span class="h-name foil-text" id="hN2">Luis Alberto</span></div>
 
-    <div id="hLine"><div class="sp21" style="margin-top:14px" aria-hidden="true"><canvas></canvas><div class="sp-curve"></div><div class="sp-line"></div><div class="sp-line2"></div></div></div>
+    <div id="hLine"><div class="sp21" style="margin-top:14px" aria-hidden="true"><div class="sp-fl"></div><div class="sp-hz"></div><canvas></canvas></div></div>
 
     <div class="h-date-wrap" id="hDate">
       <p class="h-date">07 · Agosto · 2027</p>
@@ -3729,7 +3730,7 @@ canvas.cst{position:absolute;pointer-events:none;z-index:2}
   <div class="ft-orn">✦ · ✦ · ✦</div>
   <div class="ft-nms foil-text lp-cascada">Guadalupe &amp;</div>
   <div class="ft-nms foil-text lp-cascada">Luis Alberto</div>
-  <div class="sp21" aria-hidden="true"><canvas></canvas><div class="sp-curve"></div><div class="sp-line"></div><div class="sp-line2"></div></div>
+  <div class="sp21" aria-hidden="true"><div class="sp-fl"></div><div class="sp-hz"></div><canvas></canvas></div>
   <p class="ft-dt">07 · Agosto · 2027</p>
   <p class="ft-note">Ciudad de México<br>Con amor, los novios</p>
 
@@ -7007,24 +7008,27 @@ function toast(msg) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
 
-/* ═══ Sparkles (21st · efecto 29) en PLATA: línea de luz curva + polvo de estrellas ═══ */
+/* ═══ Sparkles (21st · 29, versión pulida de demo-invitacion-real · A) en PLATA: horizonte + polvo con destellos en cruz ═══ */
 (function(){
   var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('.sp21 canvas').forEach(function(cv){
-    var g = cv.getContext('2d'), dpr = Math.min(2, window.devicePixelRatio || 1), W, H, P = [], vis = false, raf = 0;
+    var g = cv.getContext('2d'), dpr = Math.min(2, window.devicePixelRatio || 1), W, H, P = [], on = false;
     function size(){ var r = cv.getBoundingClientRect(); W = r.width; H = r.height; if (!W) return; cv.width = W * dpr; cv.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0);
-      P = []; var n = Math.round(W * H / 110); for (var i = 0; i < n; i++) P.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.05 + .25, ph: Math.random() * 6.3, sp: .6 + Math.random() * 2.2, vx: (Math.random() - .5) * .12, vy: -Math.random() * .08 }); }
-    function draw(t){ g.clearRect(0, 0, W, H);
+      P = []; var n = Math.round(W * H / 260);
+      for (var i = 0; i < n; i++) P.push({ x: Math.random() * W, y: Math.pow(Math.random(), 1.6) * H, r: Math.random() * 1.05 + .2, ph: Math.random() * 6.3, sp: .5 + Math.random() * 2.4,
+        vx: (Math.random() - .5) * .08, vy: -(.02 + Math.random() * .07), az: Math.random() < .3 }); }
+    function f(t){ g.clearRect(0, 0, W, H);
       for (var i = 0; i < P.length; i++){ var p = P[i];
-        if (!RM){ p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = W; if (p.x > W) p.x = 0; if (p.y < 0) p.y = H; }
-        var a = RM ? .6 : .5 + .5 * Math.sin(t / 1000 * p.sp + p.ph); g.globalAlpha = a * a; g.fillStyle = i % 5 ? '#F4F7FC' : '#AFC6F0';
-        g.beginPath(); g.arc(p.x, p.y, p.r, 0, 6.283); g.fill(); }
-      g.globalAlpha = 1; }
-    function loop(t){ if (!vis) return; draw(t); raf = requestAnimationFrame(loop); }
+        if (!RM){ p.x += p.vx; p.y += p.vy; if (p.y < -2){ p.y = H; p.x = Math.random() * W; } }
+        var a = RM ? .7 : .5 + .5 * Math.sin(t / 1000 * p.sp + p.ph); a = a * a; g.globalAlpha = a; g.fillStyle = p.az ? '#B9CCF0' : '#F6F8FC';
+        g.beginPath(); g.arc(p.x, p.y, p.r, 0, 6.3); g.fill();
+        if (p.r > 1.05 && a > .75){ g.globalAlpha = (a - .75) * 2.4; g.fillRect(p.x - 3.2, p.y - .25, 6.4, .5); g.fillRect(p.x - .25, p.y - 3.2, .5, 6.4); } }
+      g.globalAlpha = 1;
+      if (on && !document.hidden) requestAnimationFrame(f); }
     size(); addEventListener('resize', size);
-    if (RM) { draw(0); return; }
-    new IntersectionObserver(function(es){ vis = es[0].isIntersecting; cancelAnimationFrame(raf); if (vis && !document.hidden) raf = requestAnimationFrame(loop); }).observe(cv);
-    document.addEventListener('visibilitychange', function(){ cancelAnimationFrame(raf); if (vis && !document.hidden) raf = requestAnimationFrame(loop); });
+    if (RM) { f(0); return; }
+    new IntersectionObserver(function(es){ var v = es[0].isIntersecting; if (v && !on){ on = true; requestAnimationFrame(f); } else if (!v) on = false; }).observe(cv);
+    document.addEventListener('visibilitychange', function(){ if (!document.hidden && on) requestAnimationFrame(f); });
   });
 })();
 </script>
