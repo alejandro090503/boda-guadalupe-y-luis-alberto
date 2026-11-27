@@ -82,7 +82,7 @@ for sid, img in [('itinerary', 'ink-corner.webp'), ('rsvp', 'ink-top.webp')]:
     first_child(sid, INK(img)); add_attr(sid, 'data-lp-ink')
 # uniones: velo antes de la ceremonia, cortina antes del RSVP
 add_attr('location', 'data-lp-union="velo"')
-add_attr('rsvp', 'data-lp-union="seda"')
+add_attr('rsvp', 'data-lp-union="velo"')
 # RSVP: destello en la tarjeta
 first_child('rsvp', '<div class="lp-flare" data-x="84%" data-y="18%" data-s=".75" aria-hidden="true"></div>')
 
@@ -101,7 +101,7 @@ rep('    var PAGE = [10, 20, 48];', '    var PAGE = [6, 26, 69];')
 cfg = '''<script>
 window.LP_CONFIG = {
   flareMini: 'assets/flare-mini.webp',
-  seda:    { sombra:'#030E2C', base:'#0E2A63', luz:'#AFC0DE' },
+  seda:    { sombra:'#04123A', base:'#0B2457', luz:'#6F8CC4' },
   borde:   '#061A45',
   fundido: 220,
   cortina: { sombra:'#061A45', base:'#1D4C9E', luz:'#DCE4F2' },
